@@ -9,265 +9,14 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  
   <!-- Google Fonts (Poppins) -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!--importing external CSS-->
+  <link rel="stylesheet" href="index.css">
 
-  <style>
-    :root {
-      --primary-navy: #0e3d64;
-      --accent-red: #dc3545;
-      --accent-red-hover: #bb2d3b;
-      --brand-green: #198754;
-    }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: #03d643;
-      background-color: #f8f9fa;
-      overflow-x: hidden;
-    }
-
-    /* Top Announcement Bar */
-    .top-bar {
-      background-color: var(--primary-navy);
-      font-size: 0.85rem;
-      color: #e3edf7;
-    }
-    .top-bar a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .top-bar a:hover {
-      text-decoration: underline;
-    }
-
-    /* Main Navbar */
-    .navbar {
-      padding: 0.85rem 0;
-      background: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
-    .navbar-brand-logo {
-      width: 52px;
-      height: 52px;
-      object-fit: contain;
-    }
-    .college-title {
-      font-weight: 700;
-      color: #0b2f4c;
-      line-height: 1.2;
-      font-size: 1.1rem;
-    }
-    .college-sub {
-      font-size: 0.75rem;
-      color: #6c757d;
-      font-weight: 500;
-    }
-    .nav-link {
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: #3f4753 !important;
-      padding: 0.5rem 0.8rem !important;
-      position: relative;
-    }
-    .nav-link:hover {
-      color: var(--primary-navy) !important;
-    }
-    .nav-link.active {
-      color: var(--primary-navy) !important;
-      font-weight: 600;
-    }
-    .nav-link.active::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0.8rem;
-      right: 0.8rem;
-      height: 3px;
-      background-color: #0d6efd;
-      border-radius: 2px;
-    }
-
-    .btn-admit-nav {
-      background-color: #d9383a;
-      color: #fff !important;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      padding: 0.55rem 1.4rem;
-      transition: background-color 0.2s;
-    }
-    .btn-admit-nav:hover {
-      background-color: #be1a1d;
-    }
-
-    /* Hero Section */
-    .hero-section {
-      position: relative;
-      min-height: 600px;
-      background: url('college2.jpg') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      padding-top: 5rem;
-      padding-bottom: 9rem; /* Extra space for overlapping cards */
-    }
-
-    /* Dark gradient overlay on the left for readable text */
-    .hero-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(
-        90deg, 
-        rgba(10, 31, 56, 0.92) 0%, 
-        rgba(10, 31, 56, 0.82) 42%, 
-        rgba(10, 31, 56, 0.35) 75%, 
-        rgba(0, 0, 0, 0.15) 100%
-      );
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      color: #fff;
-    }
-    .tagline-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 1.75em;
-      font-weight: 600;
-      color: #5cdba4;
-      text-transform: uppercase;
-      margin-bottom: 0.75em;
-    }
-    .tagline-badge::before {
-      content: '';
-      display: inline-block;
-      width: 28px;
-      height: 3px;
-      background-color: #2ed573;
-      border-radius: 2px;
-    }
-    .hero-title {
-      font-size: 3.5rem;
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 0.5rem;
-    }
-    .hero-location {
-      font-size: 1.75rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      opacity: 0.95;
-    }
-    .hero-desc {
-      font-size: 1.15rem;
-      font-weight: 300;
-      max-width: 500px;
-      margin-bottom: 2.2rem;
-      line-height: 1.5;
-      color: #e5eef7;
-    }
-
-    /* Hero Buttons */
-    .btn-hero-primary {
-      background-color: #e63946;
-      border: none;
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 0.75rem 1.6rem;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: 0.3s;
-    }
-    .btn-hero-primary:hover {
-      background-color: #c92a37;
-      color: #fff;
-    }
-    .btn-hero-outline {
-      background-color: transparent;
-      border: 1.5px solid rgba(255, 255, 255, 0.75);
-      color: #fff;
-      font-weight: 500;
-      font-size: 0.95rem;
-      padding: 0.75rem 1.6rem;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: 0.3s;
-    }
-    .btn-hero-outline:hover {
-      background-color: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      border-color: #fff;
-    }
-
-    /* Floating Feature Cards */
-    .feature-card-wrapper {
-      position: relative;
-      margin-top: -4.5rem; /* Pull up to overlap Hero */
-      z-index: 10;
-    }
-    .feature-card {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 1.3rem 1.2rem;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      height: 100%;
-    }
-    .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
-    }
-    .icon-circle {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.35rem;
-      color: #fff;
-      flex-shrink: 0;
-    }
-
-    /* Icon Backgrounds */
-    .bg-icon-blue   { background-color: #0d6efd; }
-    .bg-icon-green  { background-color: #198754; }
-    .bg-icon-yellow { background-color: #ffc107; color: #212529 !important; }
-    .bg-icon-red    { background-color: #dc3545; }
-
-    .feature-card h6 {
-      margin-bottom: 2px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: #212529;
-    }
-    .feature-card p {
-      margin-bottom: 0;
-      font-size: 0.78rem;
-      color: #8392a5;
-    }
-
-    @media (max-width: 991px) {
-      .hero-title { font-size: 2.4rem; }
-      .hero-location { font-size: 1.4rem; }
-      .feature-card-wrapper { margin-top: 2rem; }
-    }
-  </style>
 </head>
 <body>
 
@@ -275,35 +24,33 @@
   <div class="top-bar py-2 text-center">
     <div class="container d-flex justify-content-center align-items-center flex-wrap gap-2">
       <i class="bi bi-megaphone"></i>
-      <span>Admissions Open for Intermediate Classes (F.Sc, FA, ICS, I.Com) - Academic Session 2026–27</span>
+      <span>Admissions Open for Intermediate Classes (<b>F.Sc</b>) - Academic Session 2026–27</span>
       <span class="mx-1 d-none d-md-inline">|</span>
       <a href="#">View Details &rarr;</a>
     </div>
   </div>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg sticky-top">
+  <!-- Navbar (Padding adjusted to ensure no boxes are cut) -->
+  <nav class="navbar navbar-expand-lg sticky-top px-3 px-lg-0">
     <div class="container">
       <!-- Brand Logo + Name -->
       <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-        <img src="logo2.jpg" alt="College Logo" class="navbar-brand-logo" />
+        <img src="logo2.jpg" alt="College Logo" class="navbar-brand-logo">
         <div>
           <div class="college-title">Islamabad Model College<br>for Boys</div>
           <div class="college-sub">G-10/4, Islamabad</div>
         </div>
       </a>
 
-      <!-- Mobile Toggle Button -->
-      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+      <!-- Mobile Toggle Button (Ab clearly nazar aayega) -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <!-- Nav Links -->
       <div class="collapse navbar-collapse" id="mainNavbar">
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Home</a>
-          </li>
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">About</a>
             <ul class="dropdown-menu border-0 shadow-sm">
@@ -316,7 +63,7 @@
             <ul class="dropdown-menu border-0 shadow-sm">
               <li><a class="dropdown-item" href="#">F.Sc Pre-Medical</a></li>
               <li><a class="dropdown-item" href="#">F.Sc Pre-Engineering</a></li>
-              <li><a class="dropdown-item" href="#">ICS / I.Com / FA</a></li>
+              <li><a class="dropdown-item" href="#">ICS</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -334,35 +81,110 @@
         </ul>
 
         <!-- Right Button -->
-        <a href="#admissions" class="btn btn-admit-nav d-flex align-items-center gap-2">
+        <a href="#admissions" class="btn btn-admit-nav d-flex align-items-center gap-2 mt-3 mt-lg-0">
           <i class="bi bi-mortarboard-fill"></i> Admissions
         </a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero Section (Slider Added) -->
   <section class="hero-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-7 hero-content">
-          <div class="tagline-badge">Welcome to</div>
-          <h1 class="hero-title"><i><b>Islamabad Model<br>College for Boys</b></i></h1>
-          <div class="hero-location">G-10/4, Islamabad</div>
-          <p class="hero-desc">
-            Empowering Young Minds through Education, Character & Excellence
-          </p>
-
-          <div class="d-flex flex-wrap gap-3">
-            <a href="#" class="btn btn-hero-primary">
-              <i class="bi bi-mortarboard"></i> Admissions &rarr;
-            </a>
-            <a href="#" class="btn btn-hero-outline">
-              <i class="bi bi-book"></i> Explore College &rarr;
-            </a>
+    <div id="mainHeroSlider" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      
+      <div class="carousel-inner">
+        
+        <!-- Slide 1 (Left Aligned Text) -->
+        <div class="carousel-item active slide-1">
+          <div class="hero-overlay"></div>
+          <div class="d-flex align-items-center w-100 h-100">
+            <div class="container hero-content">
+              <div class="row">
+                <div class="col-lg-9 text-start">
+                  <div class="tagline-badge">Welcome to</div>
+                  <h1 class="hero-title">Islamabad Model College for Boys (IMCB)</h1>
+                  <div class="hero-subtitle">G-10/4, Islamabad</div>
+                  <p class="hero-desc">IMCB G-10/4 is a well-known government educational institution located in Islamabad.</p>
+                  <div class="d-flex flex-wrap gap-3 justify-content-start">
+                    <a href="#" class="btn btn-hero-primary">Admission Open &rarr;</a>
+                    <a href="#" class="btn btn-hero-outline">Explore College</a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Slide 2 (Left Aligned Text WITHOUT Box) -->
+        <div class="carousel-item slide-2">
+          <div class="hero-overlay"></div>
+          <div class="d-flex align-items-center w-100 h-100">
+            <div class="container hero-content">
+              <div class="row">
+                <div class="col-lg-9 text-start">
+                  <div class="tagline-badge">Academic Session 2026-27</div>
+                  <h1 class="hero-title">Shape Your Future With IMCB G-10/4</h1>
+                  <div class="hero-subtitle">F.Sc & ICS</div>
+                  <p class="hero-desc">Build a strong academic foundation through quality education, dedicated faculty, leadership opportunities, and holistic student development.</p>
+                  <div class="d-flex flex-wrap gap-3 justify-content-start">
+                    <a href="#" class="btn btn-hero-primary">Apply Now &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 (Left Aligned Text) -->
+        <div class="carousel-item slide-3">
+          <div class="hero-overlay"></div>
+          <div class="d-flex align-items-center w-100 h-100">
+            <div class="container hero-content">
+              <div class="row">
+                <div class="col-lg-9 text-start">
+                  <div class="tagline-badge">Beyond Academics</div>
+                  <h1 class="hero-title">Sports & Extracurriculars</h1>
+                  <div class="hero-subtitle">Holistic Development</div>
+                  <p class="hero-desc">We believe in nurturing physical fitness, teamwork, and leadership skills through various sports.</p>
+                  <div class="d-flex flex-wrap gap-3 justify-content-start">
+                    <a href="#" class="btn btn-hero-outline">View Gallery</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 (Left Aligned Text) -->
+        <div class="carousel-item slide-4">
+          <div class="hero-overlay"></div>
+          <div class="d-flex align-items-center w-100 h-100">
+            <div class="container hero-content">
+              <div class="row">
+                <div class="col-lg-9 text-start">
+                  <div class="tagline-badge">Leadership</div>
+                  <h1 class="hero-title">Student Council</h1>
+                  <p class="hero-desc">Develop leadership skills, represent your peers, and organize college activities to make a real impact.</p>
+                  <div class="d-flex flex-wrap gap-3 justify-content-start">
+                    <a href="#" class="btn btn-hero-outline">Learn More &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
+
+      <!-- Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#mainHeroSlider" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#mainHeroSlider" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
   </section>
 
@@ -425,7 +247,106 @@
     </div>
   </section>
 
-  <div style="height: 100px;"></div>
+  <!-- NEW SECTION: Legacy of Excellence -->
+  <section class="py-5" style="margin-top: 3rem;">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-7 mb-4 mb-lg-0">
+          <h2 class="section-title">A Legacy of Excellence</h2>
+          <p class="section-desc">
+            Islamabad Model College for Boys (IMCB), G-10/4, is a premier educational institution operating under the esteemed Federal Directorate of Education (FDE). Established with the vision of providing accessible, high-quality education to the youth of the capital, the college has grown into a hub of academic excellence and character building.
+          </p>
+          <a href="#" class="btn btn-hero-primary mt-3" style="background-color: var(--primary-navy); border-color: var(--primary-navy);">Discover Our History &rarr;</a>
+        </div>
+        <div class="col-lg-4 offset-lg-1">
+          <div class="row g-3">
+            <div class="col-6 col-lg-12">
+              <div class="stats-box">
+                <h3>1987</h3>
+                <p>Established</p>
+              </div>
+            </div>
+            <div class="col-6 col-lg-12">
+              <div class="stats-box">
+                <h3>1164</h3>
+                <p>FBISE Affiliation Code</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: Principal's Message -->
+  <section class="py-5 principal-section">
+    <div class="container my-4">
+      <div class="row align-items-center">
+        <!-- Image Side with Decorative Backdrop & Leadership Badge -->
+        <div class="col-lg-5 mb-5 mb-lg-0 text-center">
+          <div class="principal-img-wrapper">
+            <div class="principal-img-backdrop"></div>
+            <img src="principle.jpg" alt="Prof. Ihsaan Ul Haq - Principal IMCB G-10/4" class="principal-img">
+            <div class="principal-exp-badge">
+              <i class="bi bi-patch-check-fill text-warning fs-5"></i>
+              <div>
+                <strong class="d-block text-dark" style="line-height: 1.2;">FDE Leadership</strong>
+                <span class="text-muted" style="font-size: 0.75rem;">Dedicated to Excellence</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Side -->
+        <div class="col-lg-6 offset-lg-1">
+          <div class="principal-badge">
+            <i class="bi bi-person-badge-fill me-1"></i> From the Principal's Desk
+          </div>
+          <h2 class="section-title">Principal's Message</h2>
+
+          <!-- Pull Quote Box -->
+          <div class="principal-quote-box mb-3">
+            <i class="bi bi-quote quote-icon"></i>
+            <p class="quote-text">
+              "Leading to Progress and Excellence — nurturing disciplined, innovative, and empathetic leaders of tomorrow."
+            </p>
+          </div>
+
+          <p class="section-desc mb-3">
+            Islamabad Model College for Boys (IMCB), G-10/4, is envisioned to be an internationally acclaimed educational institution destined to produce future leaders of character. As a premier bastion of learning under the Federal Directorate of Education, we foster an inspiring environment combining academic rigor with moral integrity.
+          </p>
+          <p class="section-desc mb-3">
+            Distinguished features of our college include a technology-driven teaching environment, highly qualified faculty, and modern laboratory facilities compatible with national standards. We offer academic excellence alongside character building, ensuring our students become positive contributors to society.
+          </p>
+
+          <!-- Key Pillars -->
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <span class="principal-pillar"><i class="bi bi-check-circle-fill text-success me-1"></i> Academic Excellence</span>
+            <span class="principal-pillar"><i class="bi bi-check-circle-fill text-success me-1"></i> Technology-Driven</span>
+            <span class="principal-pillar"><i class="bi bi-check-circle-fill text-success me-1"></i> Character & Discipline</span>
+          </div>
+
+          <!-- Formal Sign-Off -->
+          <div class="principal-signoff mb-4">
+            <h5 class="mb-0 fw-bold text-navy">Prof. Ihsaan Ul Haq</h5>
+            <p class="text-muted small mb-0">Principal, Islamabad Model College for Boys (G-10/4)</p>
+          </div>
+
+          <!-- Contact / Action Button -->
+          <div class="d-flex align-items-center gap-3 flex-wrap">
+            <a href="mailto:principal@example.com" class="btn btn-principal-inbox">
+              <i class="bi bi-envelope-at-fill"></i> Principal's Inbox
+            </a>
+            <span class="text-muted small">
+              <i class="bi bi-chat-left-dots text-primary me-1"></i> For suggestions & feedback
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="height: 50px;"></div>
 
   <!-- Bootstrap 5 Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
