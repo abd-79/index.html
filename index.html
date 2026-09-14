@@ -35,10 +35,13 @@
     <div class="container">
       <!-- Brand Logo + Name -->
       <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-        <img src="logo2.jpg" alt="College Logo" class="navbar-brand-logo">
-        <div>
+        <img src="logo2.jpg" alt="IMCB Logo" class="navbar-brand-logo">
+        <div class="d-none d-md-block">
           <div class="college-title">Islamabad Model College<br>for Boys</div>
           <div class="college-sub">G-10/4, Islamabad</div>
+        </div>
+        <div class="d-md-none">
+          <div class="college-title">IMCB G-10/4</div>
         </div>
       </a>
 
@@ -176,12 +179,12 @@
 
       </div>
 
-      <!-- Controls -->
-      <button class="carousel-control-prev" type="button" data-bs-target="#mainHeroSlider" data-bs-slide="prev">
+      <!-- Controls (Hidden on Mobile) -->
+      <button class="carousel-control-prev d-none d-md-flex" type="button" data-bs-target="#mainHeroSlider" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#mainHeroSlider" data-bs-slide="next">
+      <button class="carousel-control-next d-none d-md-flex" type="button" data-bs-target="#mainHeroSlider" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
