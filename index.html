@@ -57,8 +57,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">About</a>
             <ul class="dropdown-menu border-0 shadow-sm">
-              <li><a class="dropdown-item" href="#">Overview</a></li>
-              <li><a class="dropdown-item" href="#">Principal's Message</a></li>
+              <li><a class="dropdown-item" href="#overview">Overview</a></li>
+              <li><a class="dropdown-item" href="#principal">Principal's Message</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -251,19 +251,57 @@
     </div>
   </section>
 
-  <!-- NEW SECTION: Legacy of Excellence -->
-  <section class="py-5" style="margin-top: 3rem;">
+  <!-- SECTION: About - Overview -->
+  <section id="overview" class="py-5 overview-section" style="margin-top: 2rem;">
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-7 mb-4 mb-lg-0">
-          <h2 class="section-title">A Legacy of Excellence</h2>
+      <div class="row g-4">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+          <div class="principal-badge mb-2">
+            <i class="bi bi-info-circle-fill me-1"></i> Overview
+          </div>
+          <h1 class="overview-h1">Islamabad Model College for Boys (IMCB) G-10/4</h1>
           <p class="section-desc">
-            Islamabad Model College for Boys (IMCB), G-10/4, is a premier educational institution operating under the esteemed Federal Directorate of Education (FDE). Established with the vision of providing accessible, high-quality education to the youth of the capital, the college has grown into a hub of academic excellence and character building.
+            stands as one of the premier public educational institutions in the Islamabad Capital Territory. Since its inception, it has developed into a prominent center of learning, catering to thousands of students and offering a holistic academic and extracurricular environment.
           </p>
-          <a href="#" class="btn btn-hero-primary mt-3" style="background-color: var(--primary-navy); border-color: var(--primary-navy);">Discover Our History &rarr;</a>
+
+          <!-- 1. Heritage and Institutional Standing -->
+          <div class="mt-4">
+            <h2 class="overview-h2">1. Heritage and Institutional Standing</h2>
+            <p class="section-desc">
+              Established in 1987 initially as an English medium school, IMCB G-10/4 has progressively expanded its academic scope over the decades. Today, it functions under the administrative control of the Federal Directorate of Education (FDE) and is affiliated with the Federal Board of Intermediate and Secondary Education (FBISE). The college is widely recognized in the region for its commitment to producing future leaders, professionals, and responsible citizens.
+            </p>
+          </div>
+
+          <!-- 2. Comprehensive Academic Programs -->
+          <div class="mt-4">
+            <h2 class="overview-h2">2. Comprehensive Academic Programs</h2>
+            <p class="section-desc mb-2">
+              The college provides a seamless educational journey, accommodating students from Early Childhood Education (ECE) up to the Higher Secondary School Certificate (HSSC/Intermediate) level. At the intermediate level, the college offers diverse disciplines supervised by qualified and experienced faculty members. These specialized groups include:
+            </p>
+            <ul class="overview-list mb-3">
+              <li><b>F.Sc Pre-Medical:</b> For students aspiring to enter the medical and allied health fields.</li>
+              <li><b>F.Sc Pre-Engineering:</b> Focused on mathematics and physical sciences for future engineers.</li>
+            </ul>
+          </div>
+
+          <!-- 3. Campus Infrastructure and Facilities -->
+          <div class="mt-4">
+            <h2 class="overview-h2">3. Campus Infrastructure and Facilities</h2>
+            <p class="section-desc mb-2">
+              To support its rigorous academic framework, IMCB G-10/4 features a well-developed campus equipped with modern infrastructure. Key facilities include:
+            </p>
+            <ul class="overview-list">
+              <li><b>Academic Resources:</b> State-of-the-art science laboratories for practical experiments, a dedicated computer lab, and a well-stocked library to support research and self-study.</li>
+              <li><b>Student Support Services:</b> An on-campus infirmary for medical first-aid, a hostel to accommodate students from outside Islamabad, and an organized transport/bus service for secure daily commuting.</li>
+              <li><b>Recreational Areas:</b> Designated play areas and sports grounds to foster physical fitness.</li>
+            </ul>
+          </div>
         </div>
-        <div class="col-lg-4 offset-lg-1">
-          <div class="row g-3">
+
+        <!-- Sidebar Stats & Affiliation Card -->
+        <div class="col-lg-4">
+          <div class="row g-3 sticky-lg-top" style="top: 100px; z-index: 1;">
             <div class="col-6 col-lg-12">
               <div class="stats-box">
                 <h3>1987</h3>
@@ -276,6 +314,12 @@
                 <p>FBISE Affiliation Code</p>
               </div>
             </div>
+            <div class="col-12">
+              <div class="overview-card p-4 rounded-3 bg-light border shadow-sm">
+                <h6 class="fw-bold text-navy mb-2"><i class="bi bi-shield-check text-success me-2"></i>Official Affiliation</h6>
+                <p class="small text-muted mb-0">Under administrative control of the <strong>Federal Directorate of Education (FDE)</strong> & affiliated with <strong>FBISE Islamabad</strong>.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -283,7 +327,7 @@
   </section>
 
   <!-- SECTION: Principal's Message -->
-  <section class="py-5 principal-section">
+  <section id="principal" class="py-5 principal-section">
     <div class="container my-4">
       <div class="row align-items-center">
         <!-- Image Side with Decorative Backdrop & Leadership Badge -->
