@@ -422,6 +422,7 @@ body {
 .bg-green { background-color: var(--brand-green); }
 .bg-amber { background-color: #d97706; }
 .bg-red { background-color: var(--accent-red); }
+.bg-teal { background-color: #0284c7; }
 
 .program-card {
   background: #f8fafc;
@@ -468,6 +469,22 @@ body {
   background: #ffffff;
   border-color: var(--accent-red);
   box-shadow: 0 8px 20px rgba(217, 56, 58, 0.12);
+  transform: translateY(-2px);
+}
+
+.admission-finance-card {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 1.4rem;
+  border: 1px solid #e2e8f0;
+  height: 100%;
+  transition: all 0.2s ease;
+}
+
+.admission-finance-card:hover {
+  background: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 8px 20px rgba(2, 132, 199, 0.12);
   transform: translateY(-2px);
 }
 
