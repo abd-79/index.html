@@ -41,9 +41,10 @@ body {
   padding: 0.85rem 0;
   background: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); 
+  width: 100%;
 }
 .navbar-brand-logo {
-  width: 80px;
+  width: 75px;
   height: auto;
   object-fit: contain;
 }
@@ -52,19 +53,22 @@ body {
   color: var(--primary-navy); 
   line-height: 1.2;
   font-size: 1.1rem;
+  white-space: nowrap;
 }
 .college-sub {
   font-size: 0.90rem;
   color: #5d83a4;
   font-weight: 500;
+  white-space: nowrap;
 }
 .nav-link {
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   font-weight: 500;
   color: var(--text-main) !important;
-  padding: 0.5rem 0.8rem !important;
+  padding: 0.5rem 0.75rem !important;
   position: relative;
   transition: color 0.3s;
+  white-space: nowrap;
 }
 .nav-link:hover {
   color: var(--primary-navy) !important;
@@ -77,8 +81,8 @@ body {
   content: '';
   position: absolute;
   bottom: -4px;
-  left: 0.8rem;
-  right: 0.8rem;
+  left: 0.75rem;
+  right: 0.75rem;
   height: 3px;
   background-color: var(--accent-red);
   border-radius: 2px;
@@ -448,6 +452,38 @@ body {
   color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(217, 56, 58, 0.3);
+}
+
+/* Desktop Navbar Full-Width Scaling */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .nav-link {
+    font-size: 0.86rem;
+    padding: 0.45rem 0.45rem !important;
+  }
+  .navbar-brand-logo {
+    width: 62px;
+  }
+  .college-title {
+    font-size: 0.95rem;
+  }
+  .college-sub {
+    font-size: 0.8rem;
+  }
+  .btn-admit-nav {
+    font-size: 0.84rem;
+    padding: 0.45rem 0.9rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .nav-link {
+    font-size: 1rem;
+    padding: 0.5rem 1.1rem !important;
+  }
+  .btn-admit-nav {
+    font-size: 0.95rem;
+    padding: 0.6rem 1.6rem;
+  }
 }
 
 /* =========================================================

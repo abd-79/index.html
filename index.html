@@ -20,9 +20,9 @@
 </head>
 <body>
 
-  <!-- Top Announcement Bar -->
+  <!-- Top Announcement Bar (Full Width Header) -->
   <div class="top-bar py-2 text-center">
-    <div class="container d-flex justify-content-center align-items-center flex-wrap gap-2">
+    <div class="container-fluid px-3 px-lg-4 px-xl-5 d-flex justify-content-center align-items-center flex-wrap gap-2">
       <i class="bi bi-megaphone"></i>
       <span>Admissions Open for Intermediate Classes (<b>F.Sc</b>) - Academic Session 2026–27</span>
       <span class="mx-1 d-none d-md-inline">|</span>
@@ -30,9 +30,9 @@
     </div>
   </div>
 
-  <!-- Navbar (Padding adjusted to ensure no boxes are cut) -->
-  <nav class="navbar navbar-expand-lg sticky-top px-3 px-lg-0">
-    <div class="container">
+  <!-- Navbar (Full Width Header) -->
+  <nav class="navbar navbar-expand-lg sticky-top px-2 px-lg-3 px-xl-5">
+    <div class="container-fluid px-0">
       <!-- Brand Logo + Name -->
       <a class="navbar-brand d-flex align-items-center gap-2" href="#">
         <img src="logo2.jpg" alt="IMCB Logo" class="navbar-brand-logo">
@@ -50,9 +50,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Nav Links -->
-      <div class="collapse navbar-collapse" id="mainNavbar">
-        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center">
+      <!-- Nav Links (Expanded across full header) -->
+      <div class="collapse navbar-collapse justify-content-between" id="mainNavbar">
+        <ul class="navbar-nav flex-grow-1 justify-content-evenly mx-lg-2 mx-xl-4 mb-2 mb-lg-0 align-items-lg-center">
           <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">About</a>
@@ -84,7 +84,7 @@
         </ul>
 
         <!-- Right Button -->
-        <a href="#admissions" class="btn btn-admit-nav d-flex align-items-center gap-2 mt-3 mt-lg-0">
+        <a href="#admissions" class="btn btn-admit-nav d-flex align-items-center gap-2 mt-3 mt-lg-0 text-nowrap">
           <i class="bi bi-mortarboard-fill"></i> Admissions
         </a>
       </div>
