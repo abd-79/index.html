@@ -75,6 +75,11 @@
       border-color: #f59e0b;
     }
 
+    :root {
+      --hod-badge-width: 220px;
+      --faculty-badge-width: calc(var(--hod-badge-width) * 0.75); /* Exactly 75% of HOD badge */
+    }
+
     .badge-hod {
       background-color: #f59e0b;
       color: #ffffff;
@@ -85,7 +90,11 @@
       letter-spacing: 0.5px;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
+      gap: 5px;
+      width: var(--hod-badge-width);
+      max-width: 100%;
+      white-space: nowrap;
     }
 
     .badge-faculty {
@@ -93,8 +102,15 @@
       color: #475569;
       font-size: 0.72rem;
       font-weight: 600;
-      padding: 0.3rem 0.6rem;
+      padding: 0.35rem 0.6rem;
       border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--faculty-badge-width); /* 75% of HOD badge width */
+      max-width: 100%;
+      white-space: nowrap;
+      text-align: center;
     }
 
     .subject-section-card {
