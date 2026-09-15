@@ -15,6 +15,110 @@
   
   <!-- External CSS -->
   <link rel="stylesheet" href="index.css">
+
+  <style>
+    /* Dedicated Teacher Card Styles */
+    .teacher-item-card {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 1.25rem;
+      transition: all 0.25s ease;
+      height: 100%;
+      position: relative;
+    }
+
+    .teacher-item-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(19, 60, 102, 0.08);
+      border-color: var(--primary-navy);
+    }
+
+    /* HOD Special Card Styling (Placed at the very top) */
+    .teacher-item-card.is-hod {
+      border: 2px solid #f59e0b;
+      background: linear-gradient(180deg, #fffdf7 0%, #ffffff 100%);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.12);
+    }
+
+    .teacher-photo {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #e2e8f0;
+      flex-shrink: 0;
+    }
+
+    .is-hod .teacher-photo {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+
+    .teacher-avatar-fallback {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+      border: 3px solid #cbd5e1;
+    }
+
+    .is-hod .teacher-avatar-fallback {
+      background: #fef3c7;
+      color: #d97706;
+      border-color: #f59e0b;
+    }
+
+    .badge-hod {
+      background-color: #f59e0b;
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.35rem 0.65rem;
+      border-radius: 50px;
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .badge-faculty {
+      background-color: #f1f5f9;
+      color: #475569;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.3rem 0.6rem;
+      border-radius: 50px;
+    }
+
+    .subject-section-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid #eef2f6;
+      padding: 2rem;
+      margin-bottom: 2.2rem;
+      scroll-margin-top: 100px;
+    }
+
+    .subject-badge-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+  </style>
 </head>
 <body style="background-color: #f8fafc;">
 
@@ -107,7 +211,7 @@
           </div>
           <h1 class="display-5 fw-bold mb-2 text-white">Our Distinguished Faculty</h1>
           <p class="lead mb-0 text-white-50" style="max-width: 650px;">
-            A passionate cadre of educators, professors, and subject experts shaping future doctors, engineers, scholars, and national leaders.
+            Subject-wise directory of professors, lecturers, and department heads dedicated to excellence in education and student character building.
           </p>
         </div>
         <div class="col-lg-4 text-center d-none d-lg-block">
@@ -119,6 +223,9 @@
 
   <!-- Main Container -->
   <div class="container my-5">
+
+    <!-- Dynamic Success Alert Container (shown when new teacher is submitted) -->
+    <div id="alertSuccessContainer"></div>
     
     <!-- Top Lead Card -->
     <div class="overview-lead-card mb-5">
@@ -129,19 +236,19 @@
           </div>
         </div>
         <div class="col-md-10">
-          <h2 class="h3 fw-bold text-navy mb-2">Teaching Faculty at IMCB G-10/4</h2>
+          <h2 class="h3 fw-bold text-navy mb-2">Subject-Wise Faculty Directory</h2>
           <p class="section-desc lead mb-3" style="font-size: 1.05rem; line-height: 1.7; color: #475569;">
-            The backbone of our academic legacy is our dedicated teaching faculty. Operating under the administrative standards of the Federal Directorate of Education (FDE), our educators bring rich classroom experience, deep subject mastery, and a personal commitment to the holistic growth of every student.
+            Browse our faculty members categorized by their specialized academic subject. In each subject department, the <strong>Head of Department (HOD)</strong> is featured prominently at the top, followed by qualified lecturers and subject teachers.
           </p>
           <div class="d-flex flex-wrap gap-2 mb-3">
             <span class="overview-chip"><i class="bi bi-award text-primary"></i> 100% FPSC Merit Inducted</span>
             <span class="overview-chip"><i class="bi bi-mortarboard text-success"></i> M.Phil & Ph.D. Scholars</span>
-            <span class="overview-chip"><i class="bi bi-journal-check text-warning"></i> FBISE Paper Examiners</span>
-            <span class="overview-chip"><i class="bi bi-people text-danger"></i> Dedicated Student Mentors</span>
+            <span class="overview-chip"><i class="bi bi-star-fill text-warning"></i> Department Heads (HODs)</span>
+            <span class="overview-chip"><i class="bi bi-grid-3x3-gap-fill text-info"></i> 9 Academic Subjects</span>
           </div>
           <div>
             <a href="Teacher Form.html" class="btn btn-sm btn-outline-primary fw-semibold rounded-pill px-3 py-1">
-              <i class="bi bi-person-plus-fill me-1"></i> Teacher Profile Submission Form &rarr;
+              <i class="bi bi-person-plus-fill me-1"></i> Submit / Update Teacher Profile Online &rarr;
             </a>
           </div>
         </div>
@@ -151,294 +258,210 @@
     <!-- Content & Sidebar Layout -->
     <div class="row g-4">
       
-      <!-- Left Main Column (Faculty Departments & Details) -->
+      <!-- Left Main Column (The 9 Subject Sections) -->
       <div class="col-lg-8">
 
         <!-- ========================================================= -->
-        <!-- 1. DEPARTMENT OF NATURAL & PHYSICAL SCIENCES              -->
+        <!-- 1. SUBJECT: PHYSICS                                       -->
         <!-- ========================================================= -->
-        <article id="natural-sciences" class="overview-card-main">
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="overview-icon-badge bg-green">
-              <i class="bi bi-radioactive"></i>
+        <article id="subject-physics" class="subject-section-card">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 pb-2 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+              <div class="subject-badge-icon bg-success">
+                <i class="bi bi-magnet-fill"></i>
+              </div>
+              <div>
+                <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Subject 01</span>
+                <h2 class="h4 fw-bold text-navy mb-0">Physics</h2>
+              </div>
             </div>
-            <div>
-              <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Department 01</span>
-              <h2 class="h4 fw-bold text-navy mb-0">Department of Natural & Physical Sciences</h2>
-            </div>
+            <a href="Teacher Form.html?subject=Physics" class="btn btn-sm btn-outline-secondary rounded-pill">
+              <i class="bi bi-plus-circle me-1"></i> Add Physics Teacher
+            </a>
           </div>
-          
-          <p class="section-desc mb-4" style="font-size: 0.98rem; line-height: 1.75;">
-            The Natural Sciences faculty is composed of senior professors, assistant professors, and certified laboratory demonstrators who specialize in teaching <strong>Physics, Chemistry, and Biology</strong>. The team bridges theoretical concepts with rigorous laboratory experiments to prepare students for FBISE board examinations and competitive medical and engineering university entrance tests (MDCAT/ECAT).
-          </p>
-
-          <!-- 3 Subject Focus Cards -->
-          <div class="row g-3 mb-2">
-            <div class="col-md-4">
-              <div class="overview-feature-card text-center text-md-start">
-                <div class="p-2 rounded d-inline-block bg-success bg-opacity-10 text-success mb-2">
-                  <i class="bi bi-magnet-fill fs-4"></i>
-                </div>
-                <h6 class="fw-bold text-navy mb-1">Physics Wing</h6>
-                <p class="small text-muted mb-0" style="line-height: 1.55;">
-                  Mechanics, electromagnetism, modern physics, and FBISE practical apparatus training.
-                </p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="overview-feature-card text-center text-md-start">
-                <div class="p-2 rounded d-inline-block bg-primary bg-opacity-10 text-primary mb-2">
-                  <i class="bi bi-droplet-half fs-4"></i>
-                </div>
-                <h6 class="fw-bold text-navy mb-1">Chemistry Wing</h6>
-                <p class="small text-muted mb-0" style="line-height: 1.55;">
-                  Organic, inorganic, and physical chemistry supported by dedicated chemical testing labs.
-                </p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="overview-feature-card text-center text-md-start">
-                <div class="p-2 rounded d-inline-block bg-danger bg-opacity-10 text-danger mb-2">
-                  <i class="bi bi-heart-pulse-fill fs-4"></i>
-                </div>
-                <h6 class="fw-bold text-navy mb-1">Biology Wing</h6>
-                <p class="small text-muted mb-0" style="line-height: 1.55;">
-                  Botany, zoology, cytology, and dissection practices under qualified life-science demonstrators.
-                </p>
-              </div>
-            </div>
-          </div>
+          <div class="row g-3" id="teachers-list-physics"></div>
         </article>
 
         <!-- ========================================================= -->
-        <!-- 2. DEPARTMENT OF COMPUTER SCIENCE & IT                    -->
+        <!-- 2. SUBJECT: CHEMISTRY                                     -->
         <!-- ========================================================= -->
-        <article id="computer-science" class="overview-card-main">
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="overview-icon-badge bg-navy">
-              <i class="bi bi-cpu-fill"></i>
-            </div>
-            <div>
-              <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Department 02</span>
-              <h2 class="h4 fw-bold text-navy mb-0">Department of Computer Science & IT</h2>
-            </div>
-          </div>
-
-          <p class="section-desc mb-4" style="font-size: 0.98rem; line-height: 1.75;">
-            In step with rapid technological evolution, our Computer Science educators equip intermediate (ICS) and secondary school students with foundational programming knowledge, algorithmic thinking, and computer architecture principles.
-          </p>
-
-          <div class="row g-3 mb-2">
-            <div class="col-md-6">
-              <div class="overview-feature-card">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                  <span class="badge bg-primary bg-opacity-10 text-primary fw-bold px-2 py-1 rounded">Hands-on Coding</span>
-                  <i class="bi bi-laptop text-primary fs-4"></i>
-                </div>
-                <h5 class="fw-bold text-navy mb-2">Computer Lab Instruction</h5>
-                <p class="small text-muted mb-3" style="line-height: 1.6;">
-                  Practical sessions conducted in modern computer laboratories with high-speed internet and networked terminals under regular faculty supervision.
-                </p>
-                <div class="small text-muted border-top pt-2">
-                  <i class="bi bi-check2-circle text-primary me-1"></i> C/C++, Database Systems & IT Concepts
-                </div>
+        <article id="subject-chemistry" class="subject-section-card">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 pb-2 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+              <div class="subject-badge-icon bg-primary">
+                <i class="bi bi-droplet-half"></i>
+              </div>
+              <div>
+                <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Subject 02</span>
+                <h2 class="h4 fw-bold text-navy mb-0">Chemistry</h2>
               </div>
             </div>
-
-            <div class="col-md-6">
-              <div class="overview-feature-card">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                  <span class="badge bg-info bg-opacity-10 text-info fw-bold px-2 py-1 rounded">Curriculum Mastery</span>
-                  <i class="bi bi-code-square text-info fs-4"></i>
-                </div>
-                <h5 class="fw-bold text-navy mb-2">Modern IT Education</h5>
-                <p class="small text-muted mb-3" style="line-height: 1.6;">
-                  Targeted FBISE syllabus preparation ensuring students build theoretical clarity alongside functional software understanding.
-                </p>
-                <div class="small text-muted border-top pt-2">
-                  <i class="bi bi-check2-circle text-info me-1"></i> Board Exam Practice & Mock Coding Tests
-                </div>
-              </div>
-            </div>
+            <a href="Teacher Form.html?subject=Chemistry" class="btn btn-sm btn-outline-secondary rounded-pill">
+              <i class="bi bi-plus-circle me-1"></i> Add Chemistry Teacher
+            </a>
           </div>
+          <div class="row g-3" id="teachers-list-chemistry"></div>
         </article>
 
         <!-- ========================================================= -->
-        <!-- 3. DEPARTMENT OF MATHEMATICS                              -->
+        <!-- 3. SUBJECT: COMPUTER SCIENCE                              -->
         <!-- ========================================================= -->
-        <article id="mathematics" class="overview-card-main">
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="overview-icon-badge bg-amber">
-              <i class="bi bi-calculator-fill"></i>
-            </div>
-            <div>
-              <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Department 03</span>
-              <h2 class="h4 fw-bold text-navy mb-0">Department of Mathematics</h2>
-            </div>
-          </div>
-
-          <p class="section-desc mb-4" style="font-size: 0.98rem; line-height: 1.75;">
-            Mathematics is the universal language of the sciences. Our mathematics lecturers focus on eliminating students' hesitation with numbers by breaking down complex concepts into intuitive, manageable steps.
-          </p>
-
-          <div class="row g-3 mb-2">
-            <div class="col-md-6">
-              <div class="overview-feature-card">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                  <span class="badge bg-warning bg-opacity-10 text-warning fw-bold px-2 py-1 rounded">Conceptual Clarity</span>
-                  <i class="bi bi-pie-chart-fill text-warning fs-4"></i>
-                </div>
-                <h5 class="fw-bold text-navy mb-2">Algebra, Calculus & Geometry</h5>
-                <p class="small text-muted mb-3" style="line-height: 1.6;">
-                  Step-by-step guidance across intermediate mathematics, covering functions, limits, integration, differentiation, and coordinate geometry.
-                </p>
-                <div class="small text-muted border-top pt-2">
-                  <i class="bi bi-check2-circle text-warning me-1"></i> Comprehensive FBISE Textbook Coverage
-                </div>
+        <article id="subject-computerscience" class="subject-section-card">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 pb-2 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+              <div class="subject-badge-icon bg-navy">
+                <i class="bi bi-laptop"></i>
+              </div>
+              <div>
+                <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Subject 03</span>
+                <h2 class="h4 fw-bold text-navy mb-0">Computer Science</h2>
               </div>
             </div>
-
-            <div class="col-md-6">
-              <div class="overview-feature-card">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                  <span class="badge bg-success bg-opacity-10 text-success fw-bold px-2 py-1 rounded">Practice Clinics</span>
-                  <i class="bi bi-journal-text text-success fs-4"></i>
-                </div>
-                <h5 class="fw-bold text-navy mb-2">Daily Problem Solving</h5>
-                <p class="small text-muted mb-3" style="line-height: 1.6;">
-                  Regular weekly quizzes, past-paper drills, and formula reviews that build speed, accuracy, and confidence for annual board exams.
-                </p>
-                <div class="small text-muted border-top pt-2">
-                  <i class="bi bi-check2-circle text-success me-1"></i> Past Paper Analysis & Formula Sheets
-                </div>
-              </div>
-            </div>
+            <a href="Teacher Form.html?subject=Computer%20Science" class="btn btn-sm btn-outline-secondary rounded-pill">
+              <i class="bi bi-plus-circle me-1"></i> Add CS Teacher
+            </a>
           </div>
+          <div class="row g-3" id="teachers-list-computerscience"></div>
         </article>
 
         <!-- ========================================================= -->
-        <!-- 4. DEPARTMENT OF LANGUAGES & HUMANITIES                   -->
+        <!-- 4. SUBJECT: BIOLOGY                                       -->
         <!-- ========================================================= -->
-        <article id="languages-humanities" class="overview-card-main">
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="overview-icon-badge bg-red">
-              <i class="bi bi-book-half"></i>
-            </div>
-            <div>
-              <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Department 04</span>
-              <h2 class="h4 fw-bold text-navy mb-0">Department of Languages & Humanities</h2>
-            </div>
-          </div>
-
-          <p class="section-desc mb-4" style="font-size: 0.98rem; line-height: 1.75;">
-            Our Humanities and Language faculty instills linguistic eloquence, critical expression, and a strong understanding of national culture, ethics, and history across <strong>English, Urdu, Islamic Studies, and Pakistan Studies</strong>.
-          </p>
-
-          <div class="row g-3 mb-2">
-            <div class="col-md-6">
-              <div class="overview-feature-card">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                  <span class="badge bg-danger bg-opacity-10 text-danger fw-bold px-2 py-1 rounded">Bilingual Fluency</span>
-                  <i class="bi bi-translate text-danger fs-4"></i>
-                </div>
-                <h5 class="fw-bold text-navy mb-2">English & Urdu Language</h5>
-                <p class="small text-muted mb-3" style="line-height: 1.6;">
-                  Developing essay writing, comprehension, grammar mastery, and speechcraft. Faculty also mentors students for college debates and literary publications.
-                </p>
-                <div class="small text-muted border-top pt-2">
-                  <i class="bi bi-check2-circle text-danger me-1"></i> Essay Composition, Poetry & Declamation
-                </div>
+        <article id="subject-biology" class="subject-section-card">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 pb-2 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+              <div class="subject-badge-icon bg-danger">
+                <i class="bi bi-heart-pulse-fill"></i>
+              </div>
+              <div>
+                <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Subject 04</span>
+                <h2 class="h4 fw-bold text-navy mb-0">Biology</h2>
               </div>
             </div>
-
-            <div class="col-md-6">
-              <div class="overview-feature-card">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                  <span class="badge bg-primary bg-opacity-10 text-primary fw-bold px-2 py-1 rounded">Civic & Moral Values</span>
-                  <i class="bi bi-compass-fill text-primary fs-4"></i>
-                </div>
-                <h5 class="fw-bold text-navy mb-2">Islamiat & Pakistan Studies</h5>
-                <p class="small text-muted mb-3" style="line-height: 1.6;">
-                  Grounding students in ethical character, national heritage, geographical understanding, and constitutional awareness.
-                </p>
-                <div class="small text-muted border-top pt-2">
-                  <i class="bi bi-check2-circle text-primary me-1"></i> Historical Heritage & Moral Character
-                </div>
-              </div>
-            </div>
+            <a href="Teacher Form.html?subject=Biology" class="btn btn-sm btn-outline-secondary rounded-pill">
+              <i class="bi bi-plus-circle me-1"></i> Add Biology Teacher
+            </a>
           </div>
+          <div class="row g-3" id="teachers-list-biology"></div>
         </article>
 
         <!-- ========================================================= -->
-        <!-- 5. ACADEMIC ADVISORY & STUDENT MENTORSHIP                 -->
+        <!-- 5. SUBJECT: MATHS                                         -->
         <!-- ========================================================= -->
-        <article id="mentorship" class="overview-card-main">
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="overview-icon-badge bg-indigo">
-              <i class="bi bi-chat-heart-fill"></i>
+        <article id="subject-maths" class="subject-section-card">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 pb-2 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+              <div class="subject-badge-icon bg-amber">
+                <i class="bi bi-calculator-fill"></i>
+              </div>
+              <div>
+                <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Subject 05</span>
+                <h2 class="h4 fw-bold text-navy mb-0">Maths</h2>
+              </div>
             </div>
-            <div>
-              <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Support System</span>
-              <h2 class="h4 fw-bold text-navy mb-0">Academic Counseling & Mentorship</h2>
-            </div>
+            <a href="Teacher Form.html?subject=Maths" class="btn btn-sm btn-outline-secondary rounded-pill">
+              <i class="bi bi-plus-circle me-1"></i> Add Maths Teacher
+            </a>
           </div>
+          <div class="row g-3" id="teachers-list-maths"></div>
+        </article>
 
-          <p class="section-desc mb-4" style="font-size: 0.98rem; line-height: 1.75;">
-            Education at IMCB G-10/4 is not confined to standard lecture hours. Our faculty maintains active counseling channels to ensure students receive the personal attention they need to flourish.
-          </p>
-
-          <div class="row g-3">
-            <div class="col-md-4">
-              <div class="overview-feature-card text-center text-md-start">
-                <div class="p-2 rounded d-inline-block bg-primary bg-opacity-10 text-primary mb-2">
-                  <i class="bi bi-clock-history fs-4"></i>
-                </div>
-                <h6 class="fw-bold text-navy mb-1">Remedial Classes</h6>
-                <p class="small text-muted mb-0" style="line-height: 1.55;">
-                  Special after-school coaching sessions for board examination candidates needing extra concept reinforcement.
-                </p>
+        <!-- ========================================================= -->
+        <!-- 6. SUBJECT: ISLAMAIYAT / TARJAMATUL QURAN                 -->
+        <!-- ========================================================= -->
+        <article id="subject-islamaiyat" class="subject-section-card">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 pb-2 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+              <div class="subject-badge-icon bg-teal">
+                <i class="bi bi-book-half"></i>
+              </div>
+              <div>
+                <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Subject 06</span>
+                <h2 class="h4 fw-bold text-navy mb-0">Islamaiyat/Tarjamatul Quran</h2>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="overview-feature-card text-center text-md-start">
-                <div class="p-2 rounded d-inline-block bg-success bg-opacity-10 text-success mb-2">
-                  <i class="bi bi-people-fill fs-4"></i>
-                </div>
-                <h6 class="fw-bold text-navy mb-1">Parent-Teacher Links</h6>
-                <p class="small text-muted mb-0" style="line-height: 1.55;">
-                  Regular PTMs allowing teachers and guardians to review attendance, disciplinary standards, and academic performance.
-                </p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="overview-feature-card text-center text-md-start">
-                <div class="p-2 rounded d-inline-block bg-danger bg-opacity-10 text-danger mb-2">
-                  <i class="bi bi-shield-check fs-4"></i>
-                </div>
-                <h6 class="fw-bold text-navy mb-1">Proctorial Guidance</h6>
-                <p class="small text-muted mb-0" style="line-height: 1.55;">
-                  Faculty proctors work closely with the Prefectorial Board to preserve campus discipline, punctuality, and mutual respect.
-                </p>
-              </div>
-            </div>
+            <a href="Teacher Form.html?subject=Islamaiyat/Tarjamatul%20Quran" class="btn btn-sm btn-outline-secondary rounded-pill">
+              <i class="bi bi-plus-circle me-1"></i> Add Teacher
+            </a>
           </div>
+          <div class="row g-3" id="teachers-list-islamaiyat"></div>
+        </article>
+
+        <!-- ========================================================= -->
+        <!-- 7. SUBJECT: URDU                                          -->
+        <!-- ========================================================= -->
+        <article id="subject-urdu" class="subject-section-card">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 pb-2 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+              <div class="subject-badge-icon bg-indigo">
+                <i class="bi bi-translate"></i>
+              </div>
+              <div>
+                <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Subject 07</span>
+                <h2 class="h4 fw-bold text-navy mb-0">Urdu</h2>
+              </div>
+            </div>
+            <a href="Teacher Form.html?subject=Urdu" class="btn btn-sm btn-outline-secondary rounded-pill">
+              <i class="bi bi-plus-circle me-1"></i> Add Urdu Teacher
+            </a>
+          </div>
+          <div class="row g-3" id="teachers-list-urdu"></div>
+        </article>
+
+        <!-- ========================================================= -->
+        <!-- 8. SUBJECT: HISTORY / GEO / SST                           -->
+        <!-- ========================================================= -->
+        <article id="subject-history" class="subject-section-card">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 pb-2 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+              <div class="subject-badge-icon bg-purple">
+                <i class="bi bi-globe2"></i>
+              </div>
+              <div>
+                <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Subject 08</span>
+                <h2 class="h4 fw-bold text-navy mb-0">History/Geo/SST</h2>
+              </div>
+            </div>
+            <a href="Teacher Form.html?subject=History/Geo/SST" class="btn btn-sm btn-outline-secondary rounded-pill">
+              <i class="bi bi-plus-circle me-1"></i> Add History/SST Teacher
+            </a>
+          </div>
+          <div class="row g-3" id="teachers-list-history"></div>
+        </article>
+
+        <!-- ========================================================= -->
+        <!-- 9. SUBJECT: ARTS                                          -->
+        <!-- ========================================================= -->
+        <article id="subject-arts" class="subject-section-card">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 pb-2 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+              <div class="subject-badge-icon bg-red">
+                <i class="bi bi-palette-fill"></i>
+              </div>
+              <div>
+                <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Subject 09</span>
+                <h2 class="h4 fw-bold text-navy mb-0">Arts</h2>
+              </div>
+            </div>
+            <a href="Teacher Form.html?subject=Arts" class="btn btn-sm btn-outline-secondary rounded-pill">
+              <i class="bi bi-plus-circle me-1"></i> Add Arts Teacher
+            </a>
+          </div>
+          <div class="row g-3" id="teachers-list-arts"></div>
         </article>
 
         <!-- Bottom Actions Callout -->
         <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 p-4 bg-white rounded-4 shadow-sm border mb-4">
           <div>
-            <h5 class="fw-bold text-navy mb-1">Have Questions for Our Faculty?</h5>
-            <p class="small text-muted mb-0">Admissions and academic counseling are open for session 2026–27.</p>
+            <h5 class="fw-bold text-navy mb-1">Are you a Faculty Member?</h5>
+            <p class="small text-muted mb-0">Submit your profile to be featured under your respective subject.</p>
           </div>
           <div class="d-flex gap-2">
+            <a href="Teacher Form.html" class="btn btn-primary fw-semibold">
+              <i class="bi bi-pencil-square me-1"></i> Submit Profile
+            </a>
             <a href="index.html" class="btn btn-outline-secondary">
-              <i class="bi bi-arrow-left"></i> Home
-            </a>
-            <a href="overview.html" class="btn btn-outline-primary">
-              <i class="bi bi-compass"></i> Overview
-            </a>
-            <a href="index.html#admissions" class="btn btn-admit-nav">
-              <i class="bi bi-mortarboard-fill"></i> Admissions
+              <i class="bi bi-house-door me-1"></i> Home
             </a>
           </div>
         </div>
@@ -452,45 +475,51 @@
           <!-- Quick Section Navigation Card -->
           <div class="bg-white rounded-4 p-4 shadow-sm border mb-3">
             <h6 class="fw-bold text-navy mb-3 pb-2 border-bottom">
-              <i class="bi bi-compass text-danger me-2"></i>Departments Navigation
+              <i class="bi bi-compass text-danger me-2"></i>Subject Navigation
             </h6>
             <nav class="d-flex flex-column gap-1">
-              <a href="#natural-sciences" class="overview-nav-item">
-                <i class="bi bi-radioactive text-success"></i> 1. Natural Sciences
+              <a href="#subject-physics" class="overview-nav-item">
+                <i class="bi bi-magnet-fill text-success"></i> 1. Physics
               </a>
-              <a href="#computer-science" class="overview-nav-item">
-                <i class="bi bi-cpu-fill text-primary"></i> 2. Computer Science & IT
+              <a href="#subject-chemistry" class="overview-nav-item">
+                <i class="bi bi-droplet-half text-primary"></i> 2. Chemistry
               </a>
-              <a href="#mathematics" class="overview-nav-item">
-                <i class="bi bi-calculator-fill text-warning"></i> 3. Mathematics
+              <a href="#subject-computerscience" class="overview-nav-item">
+                <i class="bi bi-laptop text-navy"></i> 3. Computer Science
               </a>
-              <a href="#languages-humanities" class="overview-nav-item">
-                <i class="bi bi-book-half text-danger"></i> 4. Languages & Humanities
+              <a href="#subject-biology" class="overview-nav-item">
+                <i class="bi bi-heart-pulse-fill text-danger"></i> 4. Biology
               </a>
-              <a href="#mentorship" class="overview-nav-item">
-                <i class="bi bi-chat-heart-fill text-info"></i> 5. Mentorship System
+              <a href="#subject-maths" class="overview-nav-item">
+                <i class="bi bi-calculator-fill text-warning"></i> 5. Maths
+              </a>
+              <a href="#subject-islamaiyat" class="overview-nav-item">
+                <i class="bi bi-book-half text-teal"></i> 6. Islamaiyat/Tarjamatul Quran
+              </a>
+              <a href="#subject-urdu" class="overview-nav-item">
+                <i class="bi bi-translate text-indigo"></i> 7. Urdu
+              </a>
+              <a href="#subject-history" class="overview-nav-item">
+                <i class="bi bi-globe2 text-purple"></i> 8. History/Geo/SST
+              </a>
+              <a href="#subject-arts" class="overview-nav-item">
+                <i class="bi bi-palette-fill text-danger"></i> 9. Arts
               </a>
             </nav>
           </div>
 
-          <!-- Stats Grid -->
-          <div class="row g-2 mb-3">
-            <div class="col-6">
-              <div class="stats-box p-3">
-                <h3 class="h2 mb-1">100%</h3>
-                <p class="small">Merit Inducted</p>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="stats-box p-3">
-                <h3 class="h2 mb-1">4</h3>
-                <p class="small">Major Wings</p>
-              </div>
-            </div>
+          <!-- Faculty Portal Card -->
+          <div class="bg-white rounded-4 p-4 shadow-sm border mb-3 text-center">
+            <i class="bi bi-person-badge-fill text-primary fs-2 mb-2 d-block"></i>
+            <h6 class="fw-bold text-navy mb-1">Faculty Online Portal</h6>
+            <p class="small text-muted mb-3" style="font-size: 0.82rem;">Teachers can submit or update their official profiles online.</p>
+            <a href="Teacher Form.html" class="btn btn-sm btn-primary w-100 fw-semibold">
+              <i class="bi bi-pencil-square me-1"></i> Open Teacher Form &rarr;
+            </a>
           </div>
 
-          <!-- Principal's Tribute Card -->
-          <div class="bg-white rounded-4 p-4 shadow-sm border mb-3">
+          <!-- Principal's Message Preview Card -->
+          <div class="bg-white rounded-4 p-4 shadow-sm border">
             <div class="d-flex align-items-center gap-3 mb-3">
               <img src="principle.jpg" alt="Principal" class="rounded-circle" style="width: 55px; height: 55px; object-fit: cover; object-position: top; border: 2px solid var(--primary-navy);">
               <div>
@@ -504,27 +533,6 @@
             <a href="index.html#principal" class="btn btn-sm btn-outline-primary w-100 fw-semibold">
               Read Principal's Message &rarr;
             </a>
-          </div>
-
-          <!-- Faculty Portal Card -->
-          <div class="bg-white rounded-4 p-4 shadow-sm border mb-3 text-center">
-            <i class="bi bi-person-badge-fill text-primary fs-2 mb-2 d-block"></i>
-            <h6 class="fw-bold text-navy mb-1">Faculty Portal</h6>
-            <p class="small text-muted mb-3" style="font-size: 0.82rem;">Teachers can submit or update their official profiles online.</p>
-            <a href="Teacher Form.html" class="btn btn-sm btn-primary w-100 fw-semibold">
-              <i class="bi bi-pencil-square me-1"></i> Open Teacher Form &rarr;
-            </a>
-          </div>
-
-          <!-- Official Governance Card -->
-          <div class="overview-card bg-white rounded-4 p-4 shadow-sm border">
-            <div class="d-flex align-items-center gap-2 mb-2">
-              <i class="bi bi-shield-fill-check text-success fs-5"></i>
-              <h6 class="fw-bold text-navy mb-0">FDE Standards</h6>
-            </div>
-            <p class="small text-muted mb-0" style="line-height: 1.6;">
-              Faculty development and recruitment comply with the rigorous quality standards of the <strong>Federal Directorate of Education (FDE)</strong>, Islamabad.
-            </p>
           </div>
 
         </div>
@@ -553,5 +561,179 @@
 
   <!-- Bootstrap 5 Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ========================================================= -->
+  <!-- DYNAMIC TEACHER DATA & HOD-FIRST SORTING SCRIPT           -->
+  <!-- ========================================================= -->
+  <script>
+    // 1. Standard Default Teachers across all 9 Subjects
+    const defaultTeachers = [
+      // Physics
+      { id: 'def_1', name: 'Prof. Muhammad Aslam', subject: 'Physics', isHOD: true, qualification: 'M.Phil Physics (QAU), B.Ed', photo: '' },
+      { id: 'def_2', name: 'Sir Tariq Aziz', subject: 'Physics', isHOD: false, qualification: 'M.Sc Physics, FBISE Specialist', photo: '' },
+
+      // Chemistry
+      { id: 'def_3', name: 'Prof. Dr. Shahid Mehmood', subject: 'Chemistry', isHOD: true, qualification: 'Ph.D. Organic Chemistry (PU)', photo: '' },
+      { id: 'def_4', name: 'Sir Imran Haider', subject: 'Chemistry', isHOD: false, qualification: 'M.Phil Physical Chemistry', photo: '' },
+
+      // Computer Science
+      { id: 'def_5', name: 'Prof. Kamran Shafi', subject: 'Computer Science', isHOD: true, qualification: 'MS Computer Science (FAST-NUCES)', photo: '' },
+      { id: 'def_6', name: 'Sir Bilal Ahmad', subject: 'Computer Science', isHOD: false, qualification: 'BS Software Engineering & ICT', photo: '' },
+
+      // Biology
+      { id: 'def_7', name: 'Prof. Abdul Rasheed', subject: 'Biology', isHOD: true, qualification: 'M.Phil Zoology, B.Ed (QAU)', photo: '' },
+      { id: 'def_8', name: 'Sir Waqas Ali', subject: 'Biology', isHOD: false, qualification: 'M.Sc Botany', photo: '' },
+
+      // Maths
+      { id: 'def_9', name: 'Prof. Zahid Hussain', subject: 'Maths', isHOD: true, qualification: 'M.Sc Mathematics, M.Ed (Punjab)', photo: '' },
+      { id: 'def_10', name: 'Sir Usman Khalid', subject: 'Maths', isHOD: false, qualification: 'M.Phil Applied Mathematics', photo: '' },
+
+      // Islamaiyat/Tarjamatul Quran
+      { id: 'def_11', name: 'Qari Hafiz Muhammad Bilal', subject: 'Islamaiyat/Tarjamatul Quran', isHOD: true, qualification: 'M.A. Islamic Studies, Dars-e-Nizami (IIUI)', photo: '' },
+      { id: 'def_12', name: 'Sir Abdul Rehman', subject: 'Islamaiyat/Tarjamatul Quran', isHOD: false, qualification: 'M.A. Arabic & Islamic Culture', photo: '' },
+
+      // Urdu
+      { id: 'def_13', name: 'Prof. Nasir Ahmad', subject: 'Urdu', isHOD: true, qualification: 'M.Phil Urdu Literature (NUML)', photo: '' },
+      { id: 'def_14', name: 'Sir Farhan Ali', subject: 'Urdu', isHOD: false, qualification: 'M.A. Urdu, Gold Medalist', photo: '' },
+
+      // History/Geo/SST
+      { id: 'def_15', name: 'Prof. Khalid Farooq', subject: 'History/Geo/SST', isHOD: true, qualification: 'M.A. Pakistan Studies & History (QAU)', photo: '' },
+      { id: 'def_16', name: 'Sir Nadeem Akhtar', subject: 'History/Geo/SST', isHOD: false, qualification: 'M.Sc Geography', photo: '' },
+
+      // Arts
+      { id: 'def_17', name: 'Sir Imran Khan', subject: 'Arts', isHOD: true, qualification: 'BFA Fine Arts (NCA Lahore)', photo: '' },
+      { id: 'def_18', name: 'Sir Adnan Rafiq', subject: 'Arts', isHOD: false, qualification: 'Diploma in Graphic Arts & Calligraphy', photo: '' }
+    ];
+
+    // Map subject names to container IDs
+    const subjectContainerMap = {
+      'Physics': 'teachers-list-physics',
+      'Chemistry': 'teachers-list-chemistry',
+      'Computer Science': 'teachers-list-computerscience',
+      'Biology': 'teachers-list-biology',
+      'Maths': 'teachers-list-maths',
+      'Islamaiyat/Tarjamatul Quran': 'teachers-list-islamaiyat',
+      'Urdu': 'teachers-list-urdu',
+      'History/Geo/SST': 'teachers-list-history',
+      'Arts': 'teachers-list-arts'
+    };
+
+    // 2. Load teachers from localStorage and merge with default teachers
+    function getAllTeachers() {
+      let customTeachers = [];
+      try {
+        customTeachers = JSON.parse(localStorage.getItem('imcb_teachers') || '[]');
+      } catch (err) {
+        customTeachers = [];
+      }
+      return [...defaultTeachers, ...customTeachers];
+    }
+
+    // 3. Render all subjects
+    function renderFacultyDirectory() {
+      const allTeachers = getAllTeachers();
+
+      // Clear all containers
+      Object.values(subjectContainerMap).forEach(containerId => {
+        const el = document.getElementById(containerId);
+        if (el) el.innerHTML = '';
+      });
+
+      // Process each subject
+      Object.keys(subjectContainerMap).forEach(subjectName => {
+        const containerId = subjectContainerMap[subjectName];
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        // Filter teachers for this subject
+        const teachersForSubject = allTeachers.filter(t => t.subject === subjectName);
+
+        // SORTING: HOD goes to the very top (sb se uper)!
+        teachersForSubject.sort((a, b) => {
+          if (a.isHOD && !b.isHOD) return -1;
+          if (!a.isHOD && b.isHOD) return 1;
+          return 0;
+        });
+
+        if (teachersForSubject.length === 0) {
+          container.innerHTML = `
+            <div class="col-12">
+              <div class="p-3 text-center bg-light rounded-3 text-muted small">
+                <i class="bi bi-info-circle me-1"></i> No teachers listed yet for ${subjectName}.
+                <a href="Teacher Form.html?subject=${encodeURIComponent(subjectName)}" class="ms-2 text-primary fw-semibold">Add Teacher</a>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        // Render each teacher card
+        teachersForSubject.forEach(t => {
+          const col = document.createElement('div');
+          // If HOD, make it full-width or prominent
+          col.className = t.isHOD ? 'col-12' : 'col-md-6';
+
+          const photoHtml = t.photo 
+            ? `<img src="${t.photo}" alt="${t.name}" class="teacher-photo">` 
+            : `<div class="teacher-avatar-fallback"><i class="bi bi-person-fill"></i></div>`;
+
+          const hodBadge = t.isHOD 
+            ? `<span class="badge-hod"><i class="bi bi-star-fill"></i> Head of Department (HOD)</span>`
+            : `<span class="badge-faculty">Faculty Member</span>`;
+
+          col.innerHTML = `
+            <div class="teacher-item-card ${t.isHOD ? 'is-hod' : ''}">
+              <div class="d-flex align-items-center gap-3">
+                ${photoHtml}
+                <div class="flex-grow-1 overflow-hidden">
+                  <div class="mb-1">${hodBadge}</div>
+                  <h5 class="fw-bold text-navy mb-1 text-truncate" style="font-size: 1.05rem;">${t.name}</h5>
+                  <div class="small text-muted mb-1 text-truncate" style="font-size: 0.84rem;">
+                    <i class="bi bi-mortarboard text-primary me-1"></i> ${t.qualification || 'Qualified Faculty'}
+                  </div>
+                  <div class="small text-secondary" style="font-size: 0.78rem;">
+                    <i class="bi bi-book me-1"></i> ${t.subject}
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+
+          container.appendChild(col);
+        });
+      });
+    }
+
+    // 4. Check for URL parameters (?added=Name&subject=Subject) to show success notification
+    window.addEventListener('DOMContentLoaded', () => {
+      renderFacultyDirectory();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const addedName = urlParams.get('added');
+      const addedSubject = urlParams.get('subject');
+
+      if (addedName && addedSubject) {
+        const alertContainer = document.getElementById('alertSuccessContainer');
+        if (alertContainer) {
+          alertContainer.innerHTML = `
+            <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 mb-4 rounded-4" role="alert">
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-check-circle-fill fs-4 text-success"></i>
+                <div>
+                  <strong>Profile Successfully Added!</strong><br>
+                  Teacher <strong>${addedName}</strong> has been added under <strong>${addedSubject}</strong>.
+                </div>
+              </div>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          `;
+
+          // Clean URL without reloading
+          window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+        }
+      }
+    });
+  </script>
+
 </body>
 </html>
