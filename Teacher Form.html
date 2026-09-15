@@ -429,7 +429,56 @@
       }
     });
 
-    // 3. Form Submission: Save locally, send background email copy, and redirect to teachers.html
+    // 3. Helper: Compress image to small thumbnail (<25KB) so localStorage never overflows
+    function compressImage(file, maxWidth, maxHeight, quality, callback) {
+      if (!file) {
+        callback('');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          try {
+            const compressedUrl = canvas.toDataURL('image/jpeg', quality);
+            callback(compressedUrl);
+          } catch (err) {
+            callback(e.target.result);
+          }
+        };
+        img.onerror = function() {
+          callback('');
+        };
+        img.src = e.target.result;
+      };
+      reader.onerror = function() {
+        callback('');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // 4. Form Submission: Save locally with compression, send background email copy, and redirect
     const form = document.getElementById('teacherProfileForm');
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -463,8 +512,18 @@
         } catch (err) {
           teachers = [];
         }
-        teachers.push(newTeacher);
-        localStorage.setItem('imcb_teachers', JSON.stringify(teachers));
+
+        try {
+          teachers.push(newTeacher);
+          localStorage.setItem('imcb_teachers', JSON.stringify(teachers));
+        } catch (storageErr) {
+          console.warn('Storage quota warning, saving without large image:', storageErr);
+          try {
+            newTeacher.photo = '';
+            teachers[teachers.length - 1] = newTeacher;
+            localStorage.setItem('imcb_teachers', JSON.stringify(teachers));
+          } catch (e2) {}
+        }
 
         // Submit to FormSubmit in background for email delivery
         try {
@@ -491,15 +550,13 @@
           };
           const targetAnchor = subjectAnchorMap[subject] || 'subject-physics';
           window.location.href = 'teachers.html?added=' + encodeURIComponent(name) + '&subject=' + encodeURIComponent(subject) + '#' + targetAnchor;
-        }, 500);
+        }, 300);
       }
 
       if (fileInput.files && fileInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(evt) {
-          saveAndRedirect(evt.target.result);
-        };
-        reader.readAsDataURL(fileInput.files[0]);
+        compressImage(fileInput.files[0], 250, 250, 0.75, function(compressedBase64) {
+          saveAndRedirect(compressedBase64);
+        });
       } else {
         saveAndRedirect('');
       }

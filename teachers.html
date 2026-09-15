@@ -97,6 +97,19 @@
       border-radius: 50px;
     }
 
+    .delete-teacher-btn {
+      color: #94a3b8;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      opacity: 0.5;
+    }
+
+    .delete-teacher-btn:hover {
+      color: #ef4444 !important;
+      opacity: 1;
+      transform: scale(1.15);
+    }
+
     .subject-section-card {
       background: #ffffff;
       border-radius: 16px;
@@ -566,45 +579,6 @@
   <!-- DYNAMIC TEACHER DATA & HOD-FIRST SORTING SCRIPT           -->
   <!-- ========================================================= -->
   <script>
-    // 1. Standard Default Teachers across all 9 Subjects
-    const defaultTeachers = [
-      // Physics
-      { id: 'def_1', name: 'Prof. Muhammad Aslam', subject: 'Physics', isHOD: true, qualification: 'M.Phil Physics (QAU), B.Ed', photo: '' },
-      { id: 'def_2', name: 'Sir Tariq Aziz', subject: 'Physics', isHOD: false, qualification: 'M.Sc Physics, FBISE Specialist', photo: '' },
-
-      // Chemistry
-      { id: 'def_3', name: 'Prof. Dr. Shahid Mehmood', subject: 'Chemistry', isHOD: true, qualification: 'Ph.D. Organic Chemistry (PU)', photo: '' },
-      { id: 'def_4', name: 'Sir Imran Haider', subject: 'Chemistry', isHOD: false, qualification: 'M.Phil Physical Chemistry', photo: '' },
-
-      // Computer Science
-      { id: 'def_5', name: 'Prof. Kamran Shafi', subject: 'Computer Science', isHOD: true, qualification: 'MS Computer Science (FAST-NUCES)', photo: '' },
-      { id: 'def_6', name: 'Sir Bilal Ahmad', subject: 'Computer Science', isHOD: false, qualification: 'BS Software Engineering & ICT', photo: '' },
-
-      // Biology
-      { id: 'def_7', name: 'Prof. Abdul Rasheed', subject: 'Biology', isHOD: true, qualification: 'M.Phil Zoology, B.Ed (QAU)', photo: '' },
-      { id: 'def_8', name: 'Sir Waqas Ali', subject: 'Biology', isHOD: false, qualification: 'M.Sc Botany', photo: '' },
-
-      // Maths
-      { id: 'def_9', name: 'Prof. Zahid Hussain', subject: 'Maths', isHOD: true, qualification: 'M.Sc Mathematics, M.Ed (Punjab)', photo: '' },
-      { id: 'def_10', name: 'Sir Usman Khalid', subject: 'Maths', isHOD: false, qualification: 'M.Phil Applied Mathematics', photo: '' },
-
-      // Islamaiyat/Tarjamatul Quran
-      { id: 'def_11', name: 'Qari Hafiz Muhammad Bilal', subject: 'Islamaiyat/Tarjamatul Quran', isHOD: true, qualification: 'M.A. Islamic Studies, Dars-e-Nizami (IIUI)', photo: '' },
-      { id: 'def_12', name: 'Sir Abdul Rehman', subject: 'Islamaiyat/Tarjamatul Quran', isHOD: false, qualification: 'M.A. Arabic & Islamic Culture', photo: '' },
-
-      // Urdu
-      { id: 'def_13', name: 'Prof. Nasir Ahmad', subject: 'Urdu', isHOD: true, qualification: 'M.Phil Urdu Literature (NUML)', photo: '' },
-      { id: 'def_14', name: 'Sir Farhan Ali', subject: 'Urdu', isHOD: false, qualification: 'M.A. Urdu, Gold Medalist', photo: '' },
-
-      // History/Geo/SST
-      { id: 'def_15', name: 'Prof. Khalid Farooq', subject: 'History/Geo/SST', isHOD: true, qualification: 'M.A. Pakistan Studies & History (QAU)', photo: '' },
-      { id: 'def_16', name: 'Sir Nadeem Akhtar', subject: 'History/Geo/SST', isHOD: false, qualification: 'M.Sc Geography', photo: '' },
-
-      // Arts
-      { id: 'def_17', name: 'Sir Imran Khan', subject: 'Arts', isHOD: true, qualification: 'BFA Fine Arts (NCA Lahore)', photo: '' },
-      { id: 'def_18', name: 'Sir Adnan Rafiq', subject: 'Arts', isHOD: false, qualification: 'Diploma in Graphic Arts & Calligraphy', photo: '' }
-    ];
-
     // Map subject names to container IDs
     const subjectContainerMap = {
       'Physics': 'teachers-list-physics',
@@ -618,15 +592,26 @@
       'Arts': 'teachers-list-arts'
     };
 
-    // 2. Load teachers from localStorage and merge with default teachers
+    // 1. Load ONLY teachers submitted through the online Teacher Form
     function getAllTeachers() {
-      let customTeachers = [];
       try {
-        customTeachers = JSON.parse(localStorage.getItem('imcb_teachers') || '[]');
+        return JSON.parse(localStorage.getItem('imcb_teachers') || '[]');
       } catch (err) {
-        customTeachers = [];
+        console.error('Error reading teachers:', err);
+        return [];
       }
-      return [...defaultTeachers, ...customTeachers];
+    }
+
+    // 2. Remove teacher function
+    function deleteTeacher(id) {
+      if (!confirm('Are you sure you want to remove this teacher?')) return;
+      try {
+        let list = getAllTeachers().filter(t => t.id !== id);
+        localStorage.setItem('imcb_teachers', JSON.stringify(list));
+        renderFacultyDirectory();
+      } catch (err) {
+        console.error('Error deleting teacher:', err);
+      }
     }
 
     // 3. Render all subjects
@@ -658,9 +643,12 @@
         if (teachersForSubject.length === 0) {
           container.innerHTML = `
             <div class="col-12">
-              <div class="p-3 text-center bg-light rounded-3 text-muted small">
-                <i class="bi bi-info-circle me-1"></i> No teachers listed yet for ${subjectName}.
-                <a href="Teacher Form.html?subject=${encodeURIComponent(subjectName)}" class="ms-2 text-primary fw-semibold">Add Teacher</a>
+              <div class="p-4 text-center bg-light rounded-4 border border-dashed">
+                <i class="bi bi-person-plus text-muted fs-3 d-block mb-2"></i>
+                <p class="text-muted small mb-2">No teacher added yet for ${subjectName}.</p>
+                <a href="Teacher Form.html?subject=${encodeURIComponent(subjectName)}" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm">
+                  <i class="bi bi-plus-lg me-1"></i> Add ${subjectName} Teacher
+                </a>
               </div>
             </div>
           `;
@@ -686,7 +674,12 @@
               <div class="d-flex align-items-center gap-3">
                 ${photoHtml}
                 <div class="flex-grow-1 overflow-hidden">
-                  <div class="mb-1">${hodBadge}</div>
+                  <div class="d-flex align-items-center justify-content-between mb-1">
+                    <div>${hodBadge}</div>
+                    <button type="button" class="btn btn-sm text-secondary p-0 border-0 bg-transparent delete-teacher-btn" title="Remove teacher" onclick="deleteTeacher('${t.id}')">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+                  </div>
                   <h5 class="fw-bold text-navy mb-1 text-truncate" style="font-size: 1.05rem;">${t.name}</h5>
                   <div class="small text-muted mb-1 text-truncate" style="font-size: 0.84rem;">
                     <i class="bi bi-mortarboard text-primary me-1"></i> ${t.qualification || 'Qualified Faculty'}
