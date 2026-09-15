@@ -627,9 +627,9 @@
         if (response.ok) {
           const cloudTeachers = await response.json();
           if (Array.isArray(cloudTeachers)) {
-            currentTeachersList = cloudTeachers;
+            currentTeachersList = cloudTeachers.filter(t => t && t.name && t.name.trim() !== '');
             try {
-              localStorage.setItem('imcb_teachers', JSON.stringify(cloudTeachers));
+              localStorage.setItem('imcb_teachers', JSON.stringify(currentTeachersList));
             } catch (e) {}
             renderFacultyDirectory();
           }
