@@ -392,6 +392,9 @@
     </div>
   </div>
 
+  <!-- Configuration Script for Cloud Database -->
+  <script src="config.js"></script>
+
   <!-- Image Preview & Auto-Save Redirection Script -->
   <script>
     // 1. Preview uploaded image
@@ -513,6 +516,7 @@
           teachers = [];
         }
 
+        // 1. Save locally for instant preview on this device
         try {
           teachers.push(newTeacher);
           localStorage.setItem('imcb_teachers', JSON.stringify(teachers));
@@ -525,7 +529,19 @@
           } catch (e2) {}
         }
 
-        // Submit to FormSubmit in background for email delivery
+        // 2. Submit to Google Sheets Cloud Database if URL is configured
+        if (typeof GOOGLE_SHEET_API_URL !== 'undefined' && GOOGLE_SHEET_API_URL && GOOGLE_SHEET_API_URL.trim() !== '') {
+          try {
+            fetch(GOOGLE_SHEET_API_URL.trim(), {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(newTeacher)
+            }).catch(e => console.warn('Google Sheets sync error:', e));
+          } catch (e) {}
+        }
+
+        // 3. Submit to FormSubmit in background for email delivery
         try {
           const formData = new FormData(form);
           fetch(form.action, {
@@ -536,6 +552,7 @@
         } catch (err) {}
 
         // Automatically redirect to teachers.html under the specific subject anchor!
+        const redirectDelay = (typeof GOOGLE_SHEET_API_URL !== 'undefined' && GOOGLE_SHEET_API_URL && GOOGLE_SHEET_API_URL.trim() !== '') ? 600 : 300;
         setTimeout(() => {
           const subjectAnchorMap = {
             'Physics': 'subject-physics',
@@ -550,7 +567,7 @@
           };
           const targetAnchor = subjectAnchorMap[subject] || 'subject-physics';
           window.location.href = 'teachers.html?added=' + encodeURIComponent(name) + '&subject=' + encodeURIComponent(subject) + '#' + targetAnchor;
-        }, 300);
+        }, redirectDelay);
       }
 
       if (fileInput.files && fileInput.files[0]) {

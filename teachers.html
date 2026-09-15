@@ -575,6 +575,9 @@
   <!-- Bootstrap 5 Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+  <!-- Central Cloud Database Configuration -->
+  <script src="config.js"></script>
+
   <!-- ========================================================= -->
   <!-- DYNAMIC TEACHER DATA & HOD-FIRST SORTING SCRIPT           -->
   <!-- ========================================================= -->
@@ -592,22 +595,56 @@
       'Arts': 'teachers-list-arts'
     };
 
-    // 1. Load ONLY teachers submitted through the online Teacher Form
-    function getAllTeachers() {
+    // In-memory teachers store
+    let currentTeachersList = [];
+
+    // 1. Load teachers: first from localStorage, then from Google Sheets if configured
+    function loadLocalTeachers() {
       try {
         return JSON.parse(localStorage.getItem('imcb_teachers') || '[]');
       } catch (err) {
-        console.error('Error reading teachers:', err);
         return [];
       }
     }
 
-    // 2. Remove teacher function
+    function getAllTeachers() {
+      if (currentTeachersList && currentTeachersList.length > 0) {
+        return currentTeachersList;
+      }
+      return loadLocalTeachers();
+    }
+
+    // 2. Fetch live teachers from Google Sheets API
+    async function syncFromGoogleSheets() {
+      if (typeof GOOGLE_SHEET_API_URL === 'undefined' || !GOOGLE_SHEET_API_URL || GOOGLE_SHEET_API_URL.trim() === '') {
+        return;
+      }
+      try {
+        const response = await fetch(GOOGLE_SHEET_API_URL.trim(), {
+          method: 'GET',
+          redirect: 'follow'
+        });
+        if (response.ok) {
+          const cloudTeachers = await response.json();
+          if (Array.isArray(cloudTeachers)) {
+            currentTeachersList = cloudTeachers;
+            try {
+              localStorage.setItem('imcb_teachers', JSON.stringify(cloudTeachers));
+            } catch (e) {}
+            renderFacultyDirectory();
+          }
+        }
+      } catch (err) {
+        console.warn('Google Sheets cloud sync notice:', err);
+      }
+    }
+
+    // 3. Remove teacher function
     function deleteTeacher(id) {
       if (!confirm('Are you sure you want to remove this teacher?')) return;
       try {
-        let list = getAllTeachers().filter(t => t.id !== id);
-        localStorage.setItem('imcb_teachers', JSON.stringify(list));
+        currentTeachersList = getAllTeachers().filter(t => t.id !== id);
+        localStorage.setItem('imcb_teachers', JSON.stringify(currentTeachersList));
         renderFacultyDirectory();
       } catch (err) {
         console.error('Error deleting teacher:', err);
@@ -697,9 +734,11 @@
       });
     }
 
-    // 4. Check for URL parameters (?added=Name&subject=Subject) to show success notification
+    // 4. Check for URL parameters (?added=Name&subject=Subject) and initialize sync
     window.addEventListener('DOMContentLoaded', () => {
+      currentTeachersList = loadLocalTeachers();
       renderFacultyDirectory();
+      syncFromGoogleSheets();
 
       const urlParams = new URLSearchParams(window.location.search);
       const addedName = urlParams.get('added');
