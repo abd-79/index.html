@@ -97,19 +97,6 @@
       border-radius: 50px;
     }
 
-    .delete-teacher-btn {
-      color: #94a3b8;
-      transition: all 0.2s ease;
-      cursor: pointer;
-      opacity: 0.5;
-    }
-
-    .delete-teacher-btn:hover {
-      color: #ef4444 !important;
-      opacity: 1;
-      transform: scale(1.15);
-    }
-
     .subject-section-card {
       background: #ffffff;
       border-radius: 16px;
@@ -639,18 +626,6 @@
       }
     }
 
-    // 3. Remove teacher function
-    function deleteTeacher(id) {
-      if (!confirm('Are you sure you want to remove this teacher?')) return;
-      try {
-        currentTeachersList = getAllTeachers().filter(t => t.id !== id);
-        localStorage.setItem('imcb_teachers', JSON.stringify(currentTeachersList));
-        renderFacultyDirectory();
-      } catch (err) {
-        console.error('Error deleting teacher:', err);
-      }
-    }
-
     // 3. Render all subjects
     function renderFacultyDirectory() {
       const allTeachers = getAllTeachers();
@@ -711,12 +686,7 @@
               <div class="d-flex align-items-center gap-3">
                 ${photoHtml}
                 <div class="flex-grow-1 overflow-hidden">
-                  <div class="d-flex align-items-center justify-content-between mb-1">
-                    <div>${hodBadge}</div>
-                    <button type="button" class="btn btn-sm text-secondary p-0 border-0 bg-transparent delete-teacher-btn" title="Remove teacher" onclick="deleteTeacher('${t.id}')">
-                      <i class="bi bi-trash3"></i>
-                    </button>
-                  </div>
+                  <div class="mb-1">${hodBadge}</div>
                   <h5 class="fw-bold text-navy mb-1 text-truncate" style="font-size: 1.05rem;">${t.name}</h5>
                   <div class="small text-muted mb-1 text-truncate" style="font-size: 0.84rem;">
                     <i class="bi bi-mortarboard text-primary me-1"></i> ${t.qualification || 'Qualified Faculty'}
