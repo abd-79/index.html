@@ -529,10 +529,12 @@
           } catch (e2) {}
         }
 
-        // 2. Submit to Google Sheets Cloud Database if URL is configured
-        if (typeof GOOGLE_SHEET_API_URL !== 'undefined' && GOOGLE_SHEET_API_URL && GOOGLE_SHEET_API_URL.trim() !== '') {
+        // 2. Submit to Google Sheets Cloud Database
+        const DEFAULT_API_URL = "https://script.google.com/macros/s/AKfycbzcBOeVlA3MTUQ9qpUkAeIpDAxjkBYpMGr4tzNRKucnlbyV2jjrV4aIcKHL_zHmduC2Og/exec";
+        const cloudUrl = (typeof GOOGLE_SHEET_API_URL !== 'undefined' && GOOGLE_SHEET_API_URL && GOOGLE_SHEET_API_URL.trim() !== '') ? GOOGLE_SHEET_API_URL.trim() : DEFAULT_API_URL;
+        if (cloudUrl) {
           try {
-            fetch(GOOGLE_SHEET_API_URL.trim(), {
+            fetch(cloudUrl, {
               method: 'POST',
               mode: 'no-cors',
               headers: { 'Content-Type': 'text/plain;charset=utf-8' },
