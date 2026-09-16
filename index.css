@@ -782,6 +782,14 @@ body {
     justify-content: center;
     margin-top: 1rem;
   }
+  .navbar-brand-logo {
+    width: 68px;
+    height: auto;
+  }
+  .navbar-brand .college-title {
+    font-size: 1.28rem;
+    font-weight: 800;
+  }
 
   /* Hero Section - Zero Cropping Architecture on Mobile & Tablets */
   .hero-section {
@@ -918,16 +926,19 @@ body {
     padding-right: 8px;
   }
 
-  /* Navbar Brand on Mobile */
+  /* Navbar Brand on Mobile (Enlarged Logo & IMCB Title) */
   .navbar {
-    padding: 0.5rem 0;
+    padding: 0.6rem 0;
   }
   .navbar-brand-logo {
-    width: 50px;
+    width: 65px;
+    height: auto;
   }
   .navbar-brand .college-title {
-    font-size: 1.05rem;
-    font-weight: 700;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    line-height: 1.15;
   }
 
   /* Hero Section Slide Changer Buttons (Hidden on Mobile) */
@@ -1058,6 +1069,12 @@ body {
 }
 
 @media (max-width: 480px) {
+  .navbar-brand-logo {
+    width: 60px;
+  }
+  .navbar-brand .college-title {
+    font-size: 1.18rem;
+  }
   .overview-nav-grid,
   .subject-nav-grid {
     grid-template-columns: repeat(2, 1fr) !important;
