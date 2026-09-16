@@ -783,21 +783,114 @@ body {
     margin-top: 1rem;
   }
 
-  /* Hero Section */
+  /* Hero Section - Zero Cropping Architecture on Mobile & Tablets */
   .hero-section {
-    height: auto;
-    min-height: 580px;
+    height: auto !important;
+    min-height: unset !important;
+    background-color: #0a192f !important;
+  }
+  .carousel,
+  .carousel-inner {
+    height: auto !important;
+  }
+  .carousel-item {
+    height: auto !important;
+    min-height: unset !important;
+    background-image: none !important;
+    background-color: #0a192f !important;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide-1,
+  .slide-2,
+  .slide-3,
+  .slide-4 {
+    background-image: none !important;
+  }
+
+  /* Dedicated 100% Uncropped Photo Stage */
+  .slide-1::before,
+  .slide-2::before,
+  .slide-3::before,
+  .slide-4::before {
+    content: '' !important;
+    display: block !important;
+    width: 100% !important;
+    height: clamp(210px, 56vw, 360px) !important;
+    background-size: contain !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-color: #06111f !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    filter: none !important;
+    transform: none !important;
+    z-index: 1 !important;
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.65);
+  }
+  .slide-1::before {
+    background-image: url('college3.webp') !important;
+  }
+  .slide-2::before {
+    background-image: url('colleges3.webp') !important;
+  }
+  .slide-3::before {
+    background-image: url('collegepic.webp') !important;
+  }
+  .slide-4::before {
+    background-image: url('Council.webp') !important;
+  }
+
+  /* No dark overlay over the image on mobile so photo is bright and clear */
+  .hero-overlay {
+    display: none !important;
+  }
+
+  /* Content Card Below Image */
+  .carousel-item > .d-flex {
+    display: block !important;
+    height: auto !important;
+    width: 100% !important;
   }
   .hero-content {
-    margin-top: 0;
-    padding-top: 3.5rem;
-    padding-bottom: 3.5rem;
+    position: relative;
+    z-index: 2;
+    padding: 1.35rem 1.25rem 1.85rem 1.25rem !important;
+    margin-top: 0 !important;
+    background-color: #0a192f;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .tagline-badge {
+    font-size: 0.76rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.35rem;
+    display: inline-block;
   }
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 1.55rem;
+    line-height: 1.25;
+    margin-bottom: 0.4rem;
   }
   .hero-subtitle {
-    font-size: 1.35rem;
+    font-size: 1.02rem;
+    margin-bottom: 0.4rem;
+  }
+  .hero-desc {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 1.15rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .btn-hero-primary,
+  .btn-hero-outline {
+    font-size: 0.88rem;
+    padding: 0.55rem 1.2rem;
   }
   .feature-card-wrapper {
     margin-top: 2rem;
@@ -843,63 +936,15 @@ body {
     display: none !important;
   }
 
-  /* Hero Section Mobile Framing (Prevents auto cropping on phones) */
-  .hero-section {
-    height: auto;
-    min-height: 440px;
-  }
-  .carousel-item {
-    height: auto;
-    min-height: 440px;
-  }
-  .hero-overlay {
-    background: rgba(10, 25, 47, 0.72);
-  }
-  .hero-content {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    margin-top: 0;
-  }
-  .slide-1 {
-    background-position: center 25%;
-  }
-  .slide-2 {
-    background-position: center top;
-  }
-  .slide-3 {
-    background-position: center 30%;
-  }
-  .slide-4 {
-    background-size: contain;
-    background-position: center center;
-  }
-  .tagline-badge {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    margin-bottom: 0.4rem;
-  }
+  /* Phone-specific typography refinement */
   .hero-title {
-    font-size: 1.7rem;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
+    font-size: 1.42rem;
   }
   .hero-subtitle {
-    font-size: 1.05rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
   }
-  .hero-desc {
-    font-size: 0.88rem;
-    line-height: 1.5;
-    margin-bottom: 1.2rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .btn-hero-primary,
-  .btn-hero-outline {
-    font-size: 0.85rem;
-    padding: 0.55rem 1.1rem;
+  .hero-content {
+    padding: 1.2rem 1rem 1.6rem 1rem !important;
   }
 
   /* Legacy / Overview Section */
@@ -961,10 +1006,10 @@ body {
 
 @media (max-width: 576px) {
   .hero-title {
-    font-size: 1.65rem;
+    font-size: 1.35rem;
   }
   .hero-subtitle {
-    font-size: 1.05rem;
+    font-size: 0.92rem;
   }
   .btn-hero-primary,
   .btn-hero-outline {
