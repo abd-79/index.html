@@ -923,3 +923,46 @@ body {
     font-size: 0.75rem;
   }
 }
+
+/* ========================================================= */
+/* MOBILE TOP NAVIGATION BAR STYLES                          */
+/* (Jahan bhi navigation bar ha wo mobile me uper ae)       */
+/* ========================================================= */
+@media (max-width: 991px) {
+  .overview-nav-grid,
+  .subject-nav-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+  .overview-nav-grid .overview-nav-item,
+  .subject-nav-grid .overview-nav-item {
+    padding: 0.6rem 0.75rem !important;
+    font-size: 0.84rem !important;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+  }
+  .overview-nav-grid .overview-nav-item:hover,
+  .subject-nav-grid .overview-nav-item:hover {
+    background: #e2e8f0;
+    padding-left: 0.75rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .overview-nav-grid,
+  .subject-nav-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .overview-nav-grid .overview-nav-item,
+  .subject-nav-grid .overview-nav-item {
+    font-size: 0.76rem !important;
+    padding: 0.5rem 0.45rem !important;
+    gap: 5px !important;
+  }
+}

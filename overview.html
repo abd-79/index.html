@@ -79,7 +79,7 @@
           <li class="nav-item"><a class="nav-link" href="index.html#events">Events</a></li>
           <li class="nav-item"><a class="nav-link" href="index.html#gallery">Gallery</a></li>
           <li class="nav-item"><a class="nav-link" href="index.html#downloads">Downloads</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
         </ul>
 
         <!-- Right Button -->
@@ -144,8 +144,8 @@
     <!-- Content & Sidebar Layout -->
     <div class="row g-4">
       
-      <!-- Left Main Column (The 4 Pillar Sections) -->
-      <div class="col-lg-8">
+      <!-- Left Main Column (The 9 Pillar Sections) -->
+      <div class="col-lg-8 order-2 order-lg-1">
 
         <!-- 1. Heritage and Institutional Standing -->
         <article id="heritage" class="overview-card-main">
@@ -665,16 +665,17 @@
 
       </div>
 
-      <!-- Right Sticky Sidebar Column -->
-      <div class="col-lg-4">
+      <!-- Right Sticky Sidebar Column (Mobile par uper, Desktop par right sticky) -->
+      <div class="col-lg-4 order-1 order-lg-2">
         <div class="sticky-top" style="top: 90px; z-index: 10;">
           
           <!-- Quick Section Navigation Card -->
-          <div class="bg-white rounded-4 p-4 shadow-sm border mb-3">
-            <h6 class="fw-bold text-navy mb-3 pb-2 border-bottom">
-              <i class="bi bi-compass text-danger me-2"></i>Quick Navigation
+          <div class="bg-white rounded-4 p-3 p-md-4 shadow-sm border mb-3">
+            <h6 class="fw-bold text-navy mb-3 pb-2 border-bottom d-flex align-items-center justify-content-between">
+              <span><i class="bi bi-compass text-danger me-2"></i>Quick Navigation</span>
+              <span class="badge bg-primary bg-opacity-10 text-primary small d-lg-none">9 Sections</span>
             </h6>
-            <nav class="d-flex flex-column gap-1">
+            <nav class="overview-nav-grid d-flex flex-column gap-1">
               <a href="#heritage" class="overview-nav-item">
                 <i class="bi bi-bank2 text-primary"></i> 1. Heritage & Standing
               </a>
@@ -705,48 +706,51 @@
             </nav>
           </div>
 
-          <!-- Stats Grid -->
-          <div class="row g-2 mb-3">
-            <div class="col-6">
-              <div class="stats-box p-3">
-                <h3 class="h2 mb-1">1987</h3>
-                <p class="small">Established</p>
+          <!-- Secondary Desktop Widgets (Hidden on mobile to keep top navigation clean) -->
+          <div class="d-none d-lg-block">
+            <!-- Stats Grid -->
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <div class="stats-box p-3">
+                  <h3 class="h2 mb-1">1987</h3>
+                  <p class="small">Established</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="stats-box p-3">
+                  <h3 class="h2 mb-1">1164</h3>
+                  <p class="small">FBISE Code</p>
+                </div>
               </div>
             </div>
-            <div class="col-6">
-              <div class="stats-box p-3">
-                <h3 class="h2 mb-1">1164</h3>
-                <p class="small">FBISE Code</p>
-              </div>
-            </div>
-          </div>
 
-          <!-- Official Affiliation Card -->
-          <div class="overview-card bg-white rounded-4 p-4 shadow-sm border mb-3">
-            <div class="d-flex align-items-center gap-2 mb-2">
-              <i class="bi bi-shield-fill-check text-success fs-5"></i>
-              <h6 class="fw-bold text-navy mb-0">Official Governance</h6>
-            </div>
-            <p class="small text-muted mb-0" style="line-height: 1.6;">
-              Under the direct administrative authority of the <strong>Federal Directorate of Education (FDE)</strong>, Ministry of Federal Education and Professional Training, Islamabad.
-            </p>
-          </div>
-
-          <!-- Principal's Message CTA Card -->
-          <div class="bg-white rounded-4 p-4 shadow-sm border">
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <img src="principle.jpg" alt="Principal" class="rounded-circle" style="width: 55px; height: 55px; object-fit: cover; object-position: top; border: 2px solid var(--primary-navy);">
-              <div>
-                <h6 class="fw-bold text-navy mb-0">Prof. Ihsaan Ul Haq</h6>
-                <span class="small text-muted">Principal, IMCB G-10/4</span>
+            <!-- Official Affiliation Card -->
+            <div class="overview-card bg-white rounded-4 p-4 shadow-sm border mb-3">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <i class="bi bi-shield-fill-check text-success fs-5"></i>
+                <h6 class="fw-bold text-navy mb-0">Official Governance</h6>
               </div>
+              <p class="small text-muted mb-0" style="line-height: 1.6;">
+                Under the direct administrative authority of the <strong>Federal Directorate of Education (FDE)</strong>, Ministry of Federal Education and Professional Training, Islamabad.
+              </p>
             </div>
-            <p class="small text-muted fst-italic mb-3" style="line-height: 1.5;">
-              "Leading to Progress and Excellence — nurturing disciplined, innovative, and empathetic leaders of tomorrow."
-            </p>
-            <a href="index.html#principal" class="btn btn-sm btn-outline-primary w-100 fw-semibold">
-              Read Principal's Message &rarr;
-            </a>
+
+            <!-- Principal's Message CTA Card -->
+            <div class="bg-white rounded-4 p-4 shadow-sm border">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="principle.jpg" alt="Principal" class="rounded-circle" style="width: 55px; height: 55px; object-fit: cover; object-position: top; border: 2px solid var(--primary-navy);">
+                <div>
+                  <h6 class="fw-bold text-navy mb-0">Prof. Ihsaan Ul Haq</h6>
+                  <span class="small text-muted">Principal, IMCB G-10/4</span>
+                </div>
+              </div>
+              <p class="small text-muted fst-italic mb-3" style="line-height: 1.5;">
+                "Leading to Progress and Excellence — nurturing disciplined, innovative, and empathetic leaders of tomorrow."
+              </p>
+              <a href="index.html#principal" class="btn btn-sm btn-outline-primary w-100 fw-semibold">
+                Read Principal's Message &rarr;
+              </a>
+            </div>
           </div>
 
         </div>
