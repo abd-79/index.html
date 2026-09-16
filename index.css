@@ -129,10 +129,10 @@ body {
 }
 
 /* Background Images for Slides */
-.slide-1 { background-image: url('college3.jpg'); }
-.slide-2 { background-image: url('colleges3.jpg'); }
-.slide-3 { background-image: url('collegepic.jpg'); }
-.slide-4 { background-image: url('Council.jpg'); }
+.slide-1 { background-image: url('college3.webp'); }
+.slide-2 { background-image: url('colleges3.webp'); }
+.slide-3 { background-image: url('collegepic.webp'); }
+.slide-4 { background-image: url('Council.webp'); }
 
 .carousel-control-prev, .carousel-control-next, .carousel-indicators {
   z-index: 5;
@@ -375,7 +375,7 @@ body {
 
 .overview-hero {
   position: relative;
-  background: linear-gradient(135deg, rgba(13, 30, 50, 0.88), rgba(19, 60, 102, 0.92)), url('college3.jpg') center/cover no-repeat;
+  background: linear-gradient(135deg, rgba(13, 30, 50, 0.88), rgba(19, 60, 102, 0.92)), url('college3.webp') center/cover no-repeat;
   padding: 4.5rem 0 3.5rem 0;
   color: #ffffff;
 }
