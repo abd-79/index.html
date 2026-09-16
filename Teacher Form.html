@@ -252,6 +252,35 @@
       font-weight: 500;
     }
 
+    .radio-card.disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .radio-card.disabled:hover {
+      border-color: #cbd5e1;
+      background: #f1f5f9;
+    }
+
+    .radio-card.disabled label,
+    .radio-card.disabled input {
+      cursor: not-allowed;
+    }
+
+    .hod-warning-banner {
+      display: none;
+      margin-top: 0.6rem;
+      padding: 0.6rem 0.85rem;
+      background-color: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
     /* Submit Button */
     .btn-submit {
       width: 100%;
@@ -347,14 +376,18 @@
             <div class="form-group">
               <label>4. Teacher Option (Designation) <span style="color: var(--accent-red);">*</span></label>
               <div class="radio-card-group">
-                <div class="radio-card">
+                <div class="radio-card" id="cardOptHOD">
                   <input type="radio" id="optHOD" name="teacher_designation" value="HOD (Head of Department)" required>
                   <label for="optHOD">HOD</label>
                 </div>
-                <div class="radio-card">
+                <div class="radio-card" id="cardOptNot">
                   <input type="radio" id="optNot" name="teacher_designation" value="Faculty Member (Not HOD)" required checked>
                   <label for="optNot">Not HOD</label>
                 </div>
+              </div>
+              <div id="hodWarningMsg" class="hod-warning-banner">
+                <span style="font-size: 0.95rem; margin-right: 0.3rem;">⚠️</span>
+                <span id="hodWarningText"></span>
               </div>
             </div>
 
@@ -418,12 +451,104 @@
       }
     }
 
+    // --- HOD Duplicate Prevention Logic ---
+    let existingTeachersList = [];
+
+    function loadLocalTeachers() {
+      try {
+        return JSON.parse(localStorage.getItem('imcb_teachers') || '[]');
+      } catch (err) {
+        return [];
+      }
+    }
+
+    existingTeachersList = loadLocalTeachers();
+
+    function normalizeSubject(s) {
+      if (!s) return '';
+      return s.toString().trim().toLowerCase().replace(/[\s\/\-_]/g, '');
+    }
+
+    function isHODTeacher(t) {
+      if (!t) return false;
+      if (t.isHOD === true) return true;
+      const s = String(t.isHOD || '').trim().toLowerCase();
+      return s === 'true' || s === 'hod' || s === 'yes' || s === '1';
+    }
+
+    function getExistingHOD(subject) {
+      if (!subject) return null;
+      const target = normalizeSubject(subject);
+      return existingTeachersList.find(t => normalizeSubject(t.subject) === target && isHODTeacher(t));
+    }
+
+    // Check if an HOD already exists for the selected subject
+    function checkHODAvailability() {
+      const select = document.getElementById('teacherSubject');
+      const selectedSubject = select ? select.value : '';
+      const optHOD = document.getElementById('optHOD');
+      const optNot = document.getElementById('optNot');
+      const cardOptHOD = document.getElementById('cardOptHOD');
+      const warningBanner = document.getElementById('hodWarningMsg');
+      const warningText = document.getElementById('hodWarningText');
+
+      if (!selectedSubject) {
+        if (warningBanner) warningBanner.style.display = 'none';
+        if (optHOD) optHOD.disabled = false;
+        if (cardOptHOD) cardOptHOD.classList.remove('disabled');
+        return;
+      }
+
+      const existingHOD = getExistingHOD(selectedSubject);
+      if (existingHOD) {
+        // Ek subject me sirf 1 HOD ho sakta hai - disable HOD option
+        if (optHOD) {
+          optHOD.disabled = true;
+          if (optHOD.checked) {
+            optNot.checked = true;
+          }
+        }
+        if (cardOptHOD) cardOptHOD.classList.add('disabled');
+        if (warningBanner && warningText) {
+          warningText.innerHTML = '<strong>Zaroori Notice:</strong> <strong>' + selectedSubject + '</strong> ke HOD pehle se mojood hain (<strong>' + existingHOD.name + '</strong>)۔ Ek subject mein do (2) HOD nahi ho saktay۔';
+          warningBanner.style.display = 'block';
+        }
+      } else {
+        if (optHOD) optHOD.disabled = false;
+        if (cardOptHOD) cardOptHOD.classList.remove('disabled');
+        if (warningBanner) warningBanner.style.display = 'none';
+      }
+    }
+
+    // Fetch live existing teachers from Google Sheets to ensure up-to-date HOD check
+    async function syncExistingTeachers() {
+      const DEFAULT_API_URL = "https://script.google.com/macros/s/AKfycbzcBOeVlA3MTUQ9qpUkAeIpDAxjkBYpMGr4tzNRKucnlbyV2jjrV4aIcKHL_zHmduC2Og/exec";
+      const cloudUrl = (typeof GOOGLE_SHEET_API_URL !== 'undefined' && GOOGLE_SHEET_API_URL && GOOGLE_SHEET_API_URL.trim() !== '') ? GOOGLE_SHEET_API_URL.trim() : DEFAULT_API_URL;
+      try {
+        const fetchUrl = cloudUrl + (cloudUrl.includes('?') ? '&' : '?') + '_nocache=' + Date.now();
+        const response = await fetch(fetchUrl, { method: 'GET', cache: 'no-store' });
+        if (response.ok) {
+          const cloudTeachers = await response.json();
+          if (Array.isArray(cloudTeachers)) {
+            existingTeachersList = cloudTeachers.filter(t => t && t.name && t.name.trim() !== '');
+            try {
+              localStorage.setItem('imcb_teachers', JSON.stringify(existingTeachersList));
+            } catch (e) {}
+            checkHODAvailability();
+          }
+        }
+      } catch (err) {
+        console.warn('Teacher sync notice:', err);
+      }
+    }
+
     // 2. Pre-select subject if passed via URL parameter (e.g., ?subject=Maths)
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const subParam = urlParams.get('subject');
-      if (subParam) {
-        const select = document.getElementById('teacherSubject');
+      const select = document.getElementById('teacherSubject');
+
+      if (subParam && select) {
         for (let i = 0; i < select.options.length; i++) {
           if (select.options[i].value.toLowerCase() === subParam.toLowerCase()) {
             select.selectedIndex = i;
@@ -431,6 +556,18 @@
           }
         }
       }
+
+      if (select) {
+        select.addEventListener('change', checkHODAvailability);
+      }
+
+      const optHOD = document.getElementById('optHOD');
+      if (optHOD) {
+        optHOD.addEventListener('change', checkHODAvailability);
+      }
+
+      checkHODAvailability();
+      syncExistingTeachers();
     });
 
     // 3. Helper: Compress image to small thumbnail (<25KB) so localStorage never overflows
@@ -498,6 +635,20 @@
       const qualification = document.getElementById('teacherQualification').value.trim();
       const fileInput = document.getElementById('teacherPic');
 
+      // Validation: Ek subject me sirf 1 HOD ho sakta hai
+      if (isHOD) {
+        const currentHOD = getExistingHOD(subject);
+        if (currentHOD) {
+          alert('Is subject (' + subject + ') ke HOD pehle se mojood hain (' + currentHOD.name + ')۔ Aik subject mein sirf aik (1) HOD ho sakta hai۔');
+          document.getElementById('optNot').checked = true;
+          checkHODAvailability();
+          btnSubmit.innerHTML = '<span>Submit Teacher Profile</span> &rarr;';
+          btnSubmit.style.opacity = '1';
+          btnSubmit.disabled = false;
+          return;
+        }
+      }
+
       function saveAndRedirect(photoDataUri) {
         const newTeacher = {
           id: 't_' + Date.now(),
@@ -521,6 +672,7 @@
         try {
           teachers.push(newTeacher);
           localStorage.setItem('imcb_teachers', JSON.stringify(teachers));
+          existingTeachersList = teachers;
         } catch (storageErr) {
           console.warn('Storage quota warning, saving without large image:', storageErr);
           try {

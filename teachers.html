@@ -734,10 +734,15 @@
           return;
         }
 
-        // Render each teacher card
+        // Render each teacher card (Ek subject me sirf 1 HOD display hoga)
+        let hodAssigned = false;
         teachersForSubject.forEach(t => {
           const col = document.createElement('div');
-          const isHOD = isHODTeacher(t);
+          const rawIsHOD = isHODTeacher(t);
+          const isHOD = rawIsHOD && !hodAssigned;
+          if (isHOD) {
+            hodAssigned = true;
+          }
 
           // If HOD, full-width prominent card
           col.className = isHOD ? 'col-12' : 'col-md-6';
